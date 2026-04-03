@@ -126,17 +126,40 @@
         width: var(--canvas-width);
         margin: 0 auto;
       }
-      .brand { display: flex; align-items: center; gap: 0.1rem; }
+      .brand { display: flex; align-items: center; gap: 0; margin-right: 0.24rem; }
       .brand-logo {
-        width: 0.36rem;
-        height: 0.36rem;
+        position: relative;
+        width: 1.08rem;
+        height: 0.24rem;
         flex: none;
+        overflow: hidden;
       }
       .brand-logo img {
+        position: absolute;
+        inset: 0;
         width: 100%;
         height: 100%;
         display: block;
         object-fit: contain;
+        transition: opacity 0.22s ease;
+      }
+      .brand-logo .brand-logo-light {
+        opacity: 1;
+      }
+      .brand-logo .brand-logo-dark {
+        opacity: 0;
+      }
+      .hero-nav.is-solid .brand-logo .brand-logo-light,
+      .hero-nav:hover .brand-logo .brand-logo-light,
+      .hero-nav.is-hover .brand-logo .brand-logo-light,
+      .hero-nav.is-menu-open .brand-logo .brand-logo-light {
+        opacity: 0;
+      }
+      .hero-nav.is-solid .brand-logo .brand-logo-dark,
+      .hero-nav:hover .brand-logo .brand-logo-dark,
+      .hero-nav.is-hover .brand-logo .brand-logo-dark,
+      .hero-nav.is-menu-open .brand-logo .brand-logo-dark {
+        opacity: 1;
       }
       .footer-brand .brand-logo {
         width: 0.32rem;
@@ -174,13 +197,31 @@
       .site-nav-item:hover,
       .nav-dropdown:hover,
       .nav-dropdown.is-open {
-        color: #277fff;
+        color: #1b63e8;
       }
       .site-nav-item.active,
       .nav-dropdown.active,
       .nav-dropdown.is-open {
-        color: #277fff;
+        color: #1456d9;
         font-weight: 500;
+      }
+      .site-nav-item[data-nav-key="home"].active {
+        color: #ffffff;
+      }
+      .hero-nav.is-solid .site-nav-item[data-nav-key="home"].active,
+      .hero-nav:hover .site-nav-item[data-nav-key="home"].active,
+      .hero-nav.is-hover .site-nav-item[data-nav-key="home"].active,
+      .hero-nav.is-menu-open .site-nav-item[data-nav-key="home"].active {
+        color: #1456d9;
+      }
+      .site-nav-item[data-nav-key="home"].active::after {
+        background: #ffffff;
+      }
+      .hero-nav.is-solid .site-nav-item[data-nav-key="home"].active::after,
+      .hero-nav:hover .site-nav-item[data-nav-key="home"].active::after,
+      .hero-nav.is-hover .site-nav-item[data-nav-key="home"].active::after,
+      .hero-nav.is-menu-open .site-nav-item[data-nav-key="home"].active::after {
+        background: #1456d9;
       }
       .site-nav-item.active::after,
       .nav-dropdown.active > .nav-trigger::after,
@@ -192,7 +233,7 @@
         bottom: -0.0333rem;
         height: 0.025rem;
         border-radius: 999px;
-        background: #277fff;
+        background: #1456d9;
       }
       .site-nav img,
       .nav-trigger img {
@@ -231,7 +272,7 @@
       .nav-dropdown-panel {
         position: fixed;
         left: 50vw;
-        top: 0.875rem;
+        top: 0.7rem;
         width: 8.0167rem;
         opacity: 0;
         visibility: hidden;
@@ -249,7 +290,7 @@
       .nav-dropdown-mask {
         position: fixed;
         inset: 0;
-        top: 0.875rem;
+        top: 0.7rem;
         background: rgba(0, 0, 0, 0.2);
         opacity: 0;
         visibility: hidden;
@@ -265,6 +306,7 @@
       .nav-dropdown-surface {
         position: relative;
         width: 100%;
+        margin-top: 0.175rem;
         padding: 0.2583rem 0.3rem 0.2583rem;
         border-radius: 0.1667rem;
         background: #ffffff;
@@ -330,10 +372,12 @@
         transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s ease;
       }
       .nav-product-link::before {
-        content: ">";
-        color: #277fff;
-        font-size: 0.1rem;
-        line-height: 1;
+        content: "";
+        display: block;
+        width: 0.1083rem;
+        height: 0.095rem;
+        flex: none;
+        background: url("./public/figma-assets/Polygon.png") center / contain no-repeat;
       }
       .nav-product-link:hover {
         color: #ffffff;
@@ -341,14 +385,14 @@
         transform: translateX(0.0167rem);
       }
       .nav-product-link:hover::before {
-        color: #ffffff;
+        filter: brightness(0) invert(1);
       }
       .nav-product-link.is-selected {
         color: #ffffff;
         background: #277fff;
       }
       .nav-product-link.is-selected::before {
-        color: #ffffff;
+        filter: brightness(0) invert(1);
       }
       .hero-copy {
         position: absolute;
@@ -859,7 +903,10 @@
           <header class="hero-nav" id="siteHeader">
             <div class="hero-nav-inner">
               <div class="brand">
-                <span class="brand-logo"><img src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><path fill="%232b78ff" d="M6 5h30a3 3 0 0 1 3 3v25a3 3 0 0 1-3 3H17.6L8.3 44A1.7 1.7 0 0 1 6 42.7V8a3 3 0 0 1 3-3Z"/><path fill="%23fff" d="M14 13h18v5H20v3h9a3 3 0 0 1 3 3v9H15v-5h12v-3h-8a5 5 0 0 1-5-5v-7Z"/><path fill="%232b78ff" d="M19 15.5h10v1.6H19zm0 11h10v1.6H19z"/></svg>' alt="千匠网络 logo" /></span>
+                <span class="brand-logo">
+                  <img class="brand-logo-light" src="./public/figma-assets/logo2.png" alt="千匠网络 logo" />
+                  <img class="brand-logo-dark" src="./public/figma-assets/logo.png" alt="千匠网络 logo" />
+                </span>
               </div>
               <nav class="site-nav" aria-label="官网主导航">
                 <a class="site-nav-item active" href="#" data-nav-key="home">首页</a>
@@ -1373,6 +1420,10 @@
           setProductHover(defaultSelectedProduct);
         }
 
+        function isWithinDropdown(target) {
+          return !!(dropdown && target && dropdown.contains(target));
+        }
+
         function positionDropdown() {
           if (!trigger || !panel || !surface) return;
           var triggerRect = trigger.getBoundingClientRect();
@@ -1409,7 +1460,7 @@
           syncHeaderState();
         }
 
-        function closeDropdown(immediate) {
+        function closeDropdown(immediate, keepProductActive) {
           if (!dropdown) return;
           clearCloseTimer();
           var run = function () {
@@ -1418,7 +1469,11 @@
             header.classList.remove("is-menu-open");
             if (mask) mask.classList.remove("is-visible");
             if (trigger) trigger.setAttribute("aria-expanded", "false");
-            restoreDefaultActive();
+            if (keepProductActive) {
+              setActiveNav("product");
+            } else {
+              restoreDefaultActive();
+            }
             restoreDefaultProduct();
             syncHeaderState();
           };
@@ -1456,7 +1511,6 @@
         });
         header.addEventListener("mouseleave", function () {
           isHeaderHovered = false;
-          closeDropdown();
           syncHeaderState();
         });
 
@@ -1470,7 +1524,8 @@
 
         if (dropdown) {
           dropdown.addEventListener("mouseenter", openDropdown);
-          dropdown.addEventListener("mouseleave", function () {
+          dropdown.addEventListener("mouseleave", function (event) {
+            if (isWithinDropdown(event.relatedTarget)) return;
             closeDropdown();
           });
         }
@@ -1479,7 +1534,7 @@
           trigger.addEventListener("click", function (event) {
             event.preventDefault();
             if (dropdown.classList.contains("is-open")) {
-              closeDropdown(true);
+              closeDropdown(true, true);
             } else {
               openDropdown();
             }
@@ -1503,7 +1558,8 @@
           panel.addEventListener("mouseenter", function () {
             clearCloseTimer();
           });
-          panel.addEventListener("mouseleave", function () {
+          panel.addEventListener("mouseleave", function (event) {
+            if (isWithinDropdown(event.relatedTarget)) return;
             closeDropdown();
           });
         }
