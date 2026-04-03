@@ -1,0 +1,1550 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>千匠云阵 | AI驱动的产业电商与供应链解决方案服务商</title>
+    <meta
+      name="description"
+      content="千匠云阵是 AI 驱动的产业电商与供应链解决方案服务商，提供产业电商云、供应链协同云、智能决策云与星云 PaaS 平台，助力企业实现全渠道交易、供应链协同与数字化增长。"
+    />
+    <meta
+      name="keywords"
+      content="千匠,千匠云阵,产业电商,供应链协同,智能决策,数字化转型,产业互联网,全渠道交易,AI供应链,星云PaaS平台"
+    />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="千匠云阵" />
+    <meta property="og:title" content="千匠云阵 | AI驱动的产业电商与供应链解决方案服务商" />
+    <meta
+      property="og:description"
+      content="覆盖产业电商云、供应链协同云、智能决策云与星云 PaaS 平台，帮助企业打通交易、供应、仓配、结算与智能决策全链路。"
+    />
+    <meta property="og:image" content="./public/figma-assets/hero-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <style>
+      html { font-size: 120px; }
+      :root {
+        font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+        --title-color: #1b2d4d;
+        --body-color: #596b89;
+        --canvas-width: 10rem;
+        --panel-shadow: 0 0.1333rem 0.2833rem rgba(33, 68, 129, 0.08);
+        color: var(--title-color);
+        background: #ffffff;
+        line-height: 1.5;
+        font-weight: 400;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      * { box-sizing: border-box; }
+      body { margin: 0; min-width: 1200px; background: #ffffff; overflow-x: auto; }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; }
+      .page-shell { display: flex; justify-content: center; min-width: 1200px; background: #ffffff; }
+      .page-canvas { width: 100%; min-width: 1200px; }
+
+      .section { width: 100%; }
+      .section-title-wrap { margin: 0 auto; text-align: center; }
+      .section-title-wrap.narrow { width: 10rem; }
+      .section-title-wrap.medium { width: 8.1667rem; }
+      .section-title-wrap h2 { margin: 0; font-size: 0.3rem; line-height: 0.45rem; font-weight: 700; color: var(--title-color); }
+      .section-title-wrap p { margin: 0.1rem 0 0; font-size: 0.1167rem; line-height: 0.325rem; color: var(--body-color); }
+
+      .hero-section {
+        position: relative;
+        width: 100%;
+        min-width: 1200px;
+        aspect-ratio: 1920 / 573;
+        overflow: hidden;
+        background: linear-gradient(90deg, #0e6bff 0%, #2588ff 45%, #556eff 100%);
+      }
+      .hero-art {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(90deg, rgba(12, 103, 255, 0.94) 0%, rgba(12, 110, 255, 0.72) 42%, rgba(80, 113, 255, 0.18) 100%),
+          radial-gradient(circle at 82% 34%, rgba(189, 228, 255, 0.6), rgba(189, 228, 255, 0) 24%);
+      }
+      .hero-nav {
+        position: fixed;
+        left: 50%;
+        top: 0;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        min-width: 1200px;
+        height: 0.7rem;
+        padding: 0 0.3333rem;
+        transform: translateX(-50%);
+        z-index: 30;
+        isolation: isolate;
+        color: #ffffff;
+        transition:
+          background-color 0.28s ease,
+          box-shadow 0.28s ease,
+          color 0.28s ease;
+      }
+      .hero-nav::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: transparent;
+        transition: background-color 0.28s ease;
+        z-index: 0;
+      }
+      .hero-nav.is-solid,
+      .hero-nav.is-hover,
+      .hero-nav.is-menu-open {
+        color: #16315d;
+        box-shadow: 0 0.0833rem 0.25rem rgba(26, 57, 112, 0.08);
+      }
+      .hero-nav.is-solid::before,
+      .hero-nav.is-hover::before,
+      .hero-nav.is-menu-open::before {
+        background: #ffffff;
+      }
+      .hero-nav-inner {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        width: var(--canvas-width);
+        margin: 0 auto;
+      }
+      .brand { display: flex; align-items: center; gap: 0.1rem; }
+      .brand-logo {
+        width: 0.36rem;
+        height: 0.36rem;
+        flex: none;
+      }
+      .brand-logo img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+      }
+      .footer-brand .brand-logo {
+        width: 0.32rem;
+        height: 0.32rem;
+      }
+      .site-nav {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.3rem;
+        flex: 1;
+        margin-left: auto;
+        font-size: 0.15rem;
+        line-height: 0.2rem;
+        color: rgba(255, 255, 255, 0.78);
+        transition: color 0.28s ease;
+      }
+      .hero-nav.is-solid .site-nav,
+      .hero-nav.is-hover .site-nav,
+      .hero-nav.is-menu-open .site-nav {
+        color: #5e6f8d;
+      }
+      .site-nav-item,
+      .nav-dropdown {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.05rem;
+        height: 0.3833rem;
+        white-space: nowrap;
+        font-weight: 400;
+        color: inherit;
+        transition: color 0.28s ease;
+      }
+      .site-nav-item:hover,
+      .nav-dropdown:hover,
+      .nav-dropdown.is-open {
+        color: #277fff;
+      }
+      .site-nav-item.active,
+      .nav-dropdown.active,
+      .nav-dropdown.is-open {
+        color: #277fff;
+        font-weight: 500;
+      }
+      .site-nav-item.active::after,
+      .nav-dropdown.active > .nav-trigger::after,
+      .nav-dropdown.is-open > .nav-trigger::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -0.0333rem;
+        height: 0.025rem;
+        border-radius: 999px;
+        background: #277fff;
+      }
+      .site-nav img,
+      .nav-trigger img {
+        width: 0.1rem;
+        height: 0.1rem;
+        opacity: 1;
+        filter: brightness(0) invert(1) opacity(0.78);
+        transition: transform 0.28s ease, filter 0.28s ease;
+      }
+      .nav-dropdown.active > .nav-trigger img,
+      .nav-dropdown.is-open > .nav-trigger img {
+        transform: rotate(180deg);
+        filter: brightness(0) saturate(100%) invert(43%) sepia(96%) saturate(3185%) hue-rotate(208deg) brightness(102%) contrast(102%);
+      }
+      .hero-nav.is-solid .nav-trigger img,
+      .hero-nav.is-hover .nav-trigger img,
+      .hero-nav.is-menu-open .nav-trigger img {
+        filter: brightness(0) saturate(100%) invert(43%) sepia(11%) saturate(1257%) hue-rotate(181deg) brightness(91%) contrast(86%);
+      }
+      .hero-nav.is-solid .nav-dropdown.active > .nav-trigger img,
+      .hero-nav.is-solid .nav-dropdown.is-open > .nav-trigger img,
+      .hero-nav.is-hover .nav-dropdown.active > .nav-trigger img,
+      .hero-nav.is-hover .nav-dropdown.is-open > .nav-trigger img,
+      .hero-nav.is-menu-open .nav-dropdown.active > .nav-trigger img,
+      .hero-nav.is-menu-open .nav-dropdown.is-open > .nav-trigger img {
+        filter: brightness(0) saturate(100%) invert(43%) sepia(96%) saturate(3185%) hue-rotate(208deg) brightness(102%) contrast(102%);
+      }
+      .nav-trigger {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.05rem;
+        height: 100%;
+        cursor: pointer;
+      }
+      .nav-dropdown-panel {
+        position: fixed;
+        left: 50vw;
+        top: 0.875rem;
+        width: 8.0167rem;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-0.05rem);
+        transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+        z-index: 29;
+      }
+      .nav-dropdown.is-open .nav-dropdown-panel {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+      .nav-dropdown-mask {
+        position: fixed;
+        inset: 0;
+        top: 0.875rem;
+        background: rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.24s ease, visibility 0.24s ease;
+        z-index: 24;
+      }
+      .nav-dropdown-mask.is-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      .nav-dropdown-surface {
+        position: relative;
+        width: 100%;
+        padding: 0.2583rem 0.3rem 0.2583rem;
+        border-radius: 0.1667rem;
+        background: #ffffff;
+        box-shadow: 0 0.15rem 0.3rem rgba(21, 50, 102, 0.16);
+      }
+      .nav-dropdown-surface::before {
+        content: "";
+        position: absolute;
+        top: -0.0833rem;
+        left: var(--dropdown-arrow-left, 50%);
+        width: 0.18rem;
+        height: 0.11rem;
+        background: #ffffff;
+        clip-path: polygon(50% 0, 0 100%, 100% 100%);
+        transform: translateX(-50%);
+        z-index: 1;
+      }
+      .nav-product-grid {
+        display: grid;
+        grid-template-columns: 2.08rem 1.88rem 1.36rem 1.36rem;
+        gap: 0.2rem;
+      }
+      .nav-product-group {
+        min-width: 0;
+      }
+      .nav-product-group-title {
+        display: flex;
+        align-items: center;
+        gap: 0.0667rem;
+        margin: 0;
+        font-size: 0.15rem;
+        line-height: 0.25rem;
+        font-weight: 700;
+        color: #171717;
+      }
+      .nav-product-group-title::before {
+        content: "";
+        width: 0.1167rem;
+        height: 0.1167rem;
+        border-radius: 0.025rem;
+        background: linear-gradient(135deg, #58a1ff 0%, #277fff 100%);
+        box-shadow: 0 0.0333rem 0.075rem rgba(39, 127, 255, 0.28);
+      }
+      .nav-product-list {
+        margin: 0.1333rem 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .nav-product-list li + li {
+        margin-top: 0.1083rem;
+      }
+      .nav-product-link {
+        display: flex;
+        align-items: center;
+        gap: 0.0583rem;
+        width: 100%;
+        min-height: 0.2667rem;
+        padding: 0 0.0667rem;
+        font-size: 0.1167rem;
+        line-height: 0.2667rem;
+        color: #7c8697;
+        border-radius: 0.0167rem;
+        transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s ease;
+      }
+      .nav-product-link::before {
+        content: ">";
+        color: #277fff;
+        font-size: 0.1rem;
+        line-height: 1;
+      }
+      .nav-product-link:hover {
+        color: #ffffff;
+        background: #277fff;
+        transform: translateX(0.0167rem);
+      }
+      .nav-product-link:hover::before {
+        color: #ffffff;
+      }
+      .nav-product-link.is-selected {
+        color: #ffffff;
+        background: #277fff;
+      }
+      .nav-product-link.is-selected::before {
+        color: #ffffff;
+      }
+      .hero-copy {
+        position: absolute;
+        left: 50%;
+        top: 28.7958%;
+        width: var(--canvas-width);
+        padding-left: 0.3167rem;
+        transform: translateX(-50%);
+        z-index: 2;
+      }
+      .hero-kicker {
+        font-size: 0.3667rem;
+        line-height: 1;
+        font-weight: 300;
+        letter-spacing: 0.12em;
+        color: inherit;
+        transition: color 0.28s ease;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.18);
+      }
+      .hero-copy h1 {
+        margin: 0.0833rem 0 0;
+        font-size: 0.4667rem;
+        line-height: 0.7rem;
+        font-weight: 700;
+        color: #ffffff;
+      }
+      .hero-line {
+        width: 0.7167rem;
+        height: 0.05rem;
+        margin-top: 0.1167rem;
+        background: #ffffff;
+      }
+      .hero-copy p {
+        margin: 0.2rem 0 0;
+        width: 4.4167rem;
+        font-size: 0.15rem;
+        line-height: 0.2917rem;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .platform-section { padding-top: 0.6667rem; }
+      .platform-panel {
+        width: var(--canvas-width);
+        height: 4.125rem;
+        margin: 0.2667rem auto 0;
+        padding: 0.3333rem 0.2833rem 0;
+        border-radius: 0.2rem;
+        background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+        box-shadow: var(--panel-shadow);
+      }
+      .cloud-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.25rem;
+      }
+      .cloud-item {
+        display: flex;
+        gap: 0.1333rem;
+        padding: 0.2333rem 0.2167rem;
+        border-radius: 0.1333rem;
+        background: linear-gradient(180deg, #f9fbff 0%, #f4f8ff 100%);
+      }
+      .cloud-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 0.4667rem;
+        height: 0.4667rem;
+        border-radius: 0.15rem;
+        background: radial-gradient(circle at 30% 30%, #ffffff 0%, #d9e8ff 50%, #8db6ff 100%);
+      }
+      .cloud-icon img { width: 0.25rem; height: 0.25rem; }
+      .cloud-item h3 { margin: 0; font-size: 0.2rem; line-height: 0.3rem; }
+      .cloud-item p { margin: 0.0833rem 0 0; font-size: 0.1167rem; line-height: 0.225rem; color: var(--body-color); }
+      .platform-banner {
+        position: relative;
+        width: calc(100% + 0.5667rem);
+        height: 1.75rem;
+        margin-top: 0.2333rem;
+        margin-left: -0.2833rem;
+        overflow: hidden;
+        border-radius: 0 0 0.2rem 0.2rem;
+      }
+      .platform-banner-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 1.75rem;
+        object-fit: cover;
+      }
+      .platform-pill {
+        position: absolute;
+        left: 0.3833rem;
+        top: 0.2917rem;
+        width: 2.0917rem;
+        height: 1.1667rem;
+        border-radius: 0.125rem;
+      }
+      .platform-copy {
+        position: absolute;
+        left: 2.85rem;
+        top: 0.4833rem;
+        right: 0.9167rem;
+      }
+      .platform-copy h3 { margin: 0; font-size: 0.2333rem; line-height: 0.35rem; color: #111111; }
+      .platform-copy p { margin: 0.1333rem 0 0; font-size: 0.2rem; line-height: 0.3rem; color: #1a1a1a; }
+
+      .empower-section {
+        padding-top: 1.1667rem;
+        padding-bottom: 0.7rem;
+        background: linear-gradient(180deg, #f8fbff 0%, #eff5ff 100%);
+      }
+      .empower-layout {
+        display: grid;
+        grid-template-columns: 2.6667rem 1fr;
+        gap: 0.1667rem;
+        width: var(--canvas-width);
+        margin: 0.3333rem auto 0;
+      }
+      .empower-sidebar,
+      .empower-stage {
+        background: #ffffff;
+        box-shadow: var(--panel-shadow);
+      }
+      .empower-sidebar {
+        height: 5.6667rem;
+      }
+      .empower-tab {
+        display: flex;
+        align-items: center;
+        gap: 0.1rem;
+        width: 100%;
+        height: 0.6667rem;
+        padding: 0 0.25rem;
+        border-left: 0.0667rem solid transparent;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 0.2rem;
+        line-height: 0.3rem;
+        background: #ffffff;
+        cursor: pointer;
+        transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+      }
+      .empower-tab img {
+        width: 0.2rem;
+        height: 0.2rem;
+        flex: none;
+      }
+      .empower-tab.active {
+        border-left-color: #4285fe;
+        color: #277fff;
+        font-weight: 500;
+      }
+      .empower-stage {
+        height: 5.6667rem;
+        padding: 0.3rem 0.4667rem 0.3rem;
+      }
+      .empower-stage-copy h3 {
+        margin: 0;
+        font-size: 0.25rem;
+        line-height: 0.35rem;
+        color: #16315d;
+      }
+      .empower-stage-copy p {
+        margin: 0.14rem 0 0;
+        font-size: 0.15rem;
+        line-height: 0.3rem;
+        color: #4f6180;
+      }
+      .empower-board {
+        margin-top: 0.17rem;
+        border: 0.0083rem solid #dbe8ff;
+        background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+      }
+      .empower-board-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.0833rem;
+        padding: 0.0583rem 0.0833rem;
+        background: linear-gradient(180deg, #4a8bff 0%, #2f7cff 100%);
+      }
+      .empower-board-tabs {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0.05rem;
+        flex: 1;
+      }
+      .empower-board-tab {
+        min-height: 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0.05rem;
+        font-size: 0.0917rem;
+        line-height: 0.1167rem;
+        text-align: center;
+        color: #ffffff;
+        background: rgba(255, 255, 255, 0.16);
+      }
+      .empower-board-tag {
+        flex: none;
+        min-width: 0.66rem;
+        height: 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0.08rem;
+        font-size: 0.0917rem;
+        color: #2f7cff;
+        background: #ffffff;
+      }
+      .empower-board-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.0833rem;
+        padding: 0.0833rem;
+      }
+      .empower-card {
+        min-height: 0.9rem;
+        padding: 0.1167rem 0.0833rem 0.1rem;
+        border: 0.0083rem solid #d8e6ff;
+        background: #ffffff;
+        text-align: center;
+      }
+      .empower-card-icon {
+        width: 0.3rem;
+        height: 0.3rem;
+        margin: 0 auto 0.0667rem;
+        border-radius: 0.0583rem;
+        background: linear-gradient(180deg, #66a5ff 0%, #2f7cff 100%);
+        box-shadow: 0 0.05rem 0.1rem rgba(47, 124, 255, 0.15);
+      }
+      .empower-card h4 {
+        margin: 0;
+        font-size: 0.1083rem;
+        line-height: 0.15rem;
+        color: #24436f;
+      }
+      .empower-card p {
+        margin: 0.05rem 0 0;
+        font-size: 0.0917rem;
+        line-height: 0.1333rem;
+        color: #7a8daa;
+      }
+      .empower-footer {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.05rem;
+        padding: 0 0.0833rem 0.0833rem;
+      }
+      .empower-footer-item {
+        min-height: 0.2167rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 0.0417rem;
+        font-size: 0.0917rem;
+        line-height: 0.1167rem;
+        color: #ffffff;
+        background: linear-gradient(180deg, #68a8ff 0%, #377fff 100%);
+      }
+
+      .industry-section { padding-top: 0.6333rem; }
+      .industry-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 0.1667rem;
+        width: var(--canvas-width);
+        margin: 0.2833rem auto 0;
+      }
+      .industry-card {
+        position: relative;
+        height: 1.3rem;
+        overflow: hidden;
+        border-radius: 0.1rem;
+        box-shadow: 0 0.15rem 0.2333rem rgba(31, 48, 87, 0.2);
+      }
+      .industry-badge {
+        position: absolute;
+        left: 50%;
+        top: 0.15rem;
+        width: 0.2833rem;
+        height: 0.2833rem;
+        margin-left: -0.1417rem;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #ffffff 0%, #a8d6ff 45%, #2677ff 100%);
+        z-index: 2;
+      }
+      .industry-mask {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(17, 24, 38, 0.65) 100%);
+      }
+      .industry-copy {
+        position: absolute;
+        left: 0.1167rem;
+        right: 0.1167rem;
+        bottom: 0.1167rem;
+        z-index: 2;
+        text-align: center;
+        color: #ffffff;
+      }
+      .industry-copy h3 { margin: 0; font-size: 0.15rem; line-height: 0.2333rem; }
+      .industry-copy p { margin: 0.05rem 0 0; font-size: 0.1rem; line-height: 0.15rem; color: rgba(255, 255, 255, 0.82); }
+      .tone-retail { background: linear-gradient(135deg, #dbe0e6 0%, #7a8798 48%, #49596d 100%); }
+      .tone-home { background: linear-gradient(135deg, #d3ecff 0%, #6aaeff 42%, #305db8 100%); }
+      .tone-auto { background: linear-gradient(135deg, #d9eef7 0%, #7da2b9 42%, #344c61 100%); }
+      .tone-manufacture { background: linear-gradient(135deg, #c8ddef 0%, #759ab9 42%, #3e5873 100%); }
+      .tone-global { background: linear-gradient(135deg, #d8effb 0%, #69b7ee 42%, #2e74c2 100%); }
+
+      .partners-section {
+        padding-top: 0.6167rem;
+        padding-bottom: 0.6667rem;
+        background: url("./public/figma-assets/partner-section-bg.png") center / cover no-repeat;
+      }
+      .partner-shot-wrap {
+        position: relative;
+        width: var(--canvas-width);
+        aspect-ratio: 1400 / 692;
+        margin: 0.2167rem auto 0;
+        overflow: hidden;
+        background: transparent;
+      }
+      .partner-shot {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .partner-shot-logos { z-index: 1; }
+
+      .knowledge-section { padding-top: 0.6167rem; }
+      .knowledge-panel {
+        display: grid;
+        grid-template-columns: 3.5rem 1fr;
+        gap: 0.1667rem;
+        width: var(--canvas-width);
+        margin: 0.3167rem auto 0;
+        padding: 0.1667rem;
+        border-radius: 0.1333rem;
+        background: #ffffff;
+        box-shadow: var(--panel-shadow);
+      }
+      .knowledge-visual {
+        position: relative;
+        min-height: 2.0833rem;
+        border-radius: 0.1rem;
+        overflow: hidden;
+        background: linear-gradient(135deg, #deefff 0%, #b8d7ff 45%, #eef7ff 100%);
+      }
+      .visual-card {
+        position: absolute;
+        left: 0.2833rem;
+        right: 1.25rem;
+        top: 0.45rem;
+        bottom: 0.3rem;
+        border-radius: 0.1167rem;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(224, 239, 255, 0.95));
+        box-shadow: 0 0.1333rem 0.2333rem rgba(79, 137, 214, 0.18);
+      }
+      .visual-orb {
+        position: absolute;
+        right: 0.7167rem;
+        top: 0.5167rem;
+        width: 0.8833rem;
+        height: 0.8833rem;
+        border-radius: 50%;
+        background: radial-gradient(circle at 34% 34%, #ffffff 0%, #79c3ff 44%, #1e66e0 100%);
+      }
+      .visual-ring {
+        position: absolute;
+        right: 0.3667rem;
+        bottom: 0.2333rem;
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 0.1rem solid rgba(255, 255, 255, 0.58);
+        border-radius: 50%;
+      }
+      .knowledge-copy { padding: 0.0833rem 0.1167rem; }
+      .knowledge-tag {
+        display: inline-flex;
+        align-items: center;
+        height: 0.2333rem;
+        padding: 0 0.1rem;
+        border-radius: 8.325rem;
+        background: #eef4ff;
+        font-size: 0.1rem;
+        color: #1b67eb;
+      }
+      .knowledge-copy h3 { margin: 0.1333rem 0 0; font-size: 0.25rem; line-height: 0.35rem; }
+      .knowledge-copy p { margin: 0.1167rem 0 0; font-size: 0.1167rem; line-height: 0.2333rem; color: var(--body-color); }
+      .knowledge-copy ul { margin: 0.15rem 0 0; padding: 0; list-style: none; }
+      .knowledge-copy li {
+        position: relative;
+        padding-left: 0.15rem;
+        font-size: 0.1167rem;
+        line-height: 0.2667rem;
+        color: #30476e;
+      }
+      .knowledge-copy li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.1rem;
+        width: 0.0583rem;
+        height: 0.0583rem;
+        border-radius: 50%;
+        background: #1b69eb;
+      }
+
+      .footer-section {
+        margin-top: 0.6833rem;
+        padding-top: 0.2333rem;
+        background: #0b152c;
+      }
+      .footer-inner {
+        display: grid;
+        grid-template-columns: 1.9167rem 1fr 1fr 1fr 1.8333rem;
+        gap: 0.3rem;
+        width: var(--canvas-width);
+        margin: 0 auto;
+        padding-bottom: 0.2333rem;
+      }
+      .footer-brand { margin-bottom: 0.1167rem; }
+      .footer-brand-block p,
+      .footer-group a,
+      .footer-contact p {
+        margin: 0;
+        color: rgba(220, 228, 246, 0.68);
+        font-size: 0.1rem;
+        line-height: 0.2rem;
+      }
+      .footer-group h4,
+      .footer-contact h4 { margin: 0 0 0.0833rem; color: #ffffff; font-size: 0.1rem; line-height: 0.1667rem; }
+      .footer-group a { display: block; }
+      .qr-box {
+        width: 0.7833rem;
+        height: 0.7833rem;
+        padding: 0.0667rem;
+        margin: 0.0833rem 0 0.0667rem;
+        border-radius: 0.0667rem;
+        background: #ffffff;
+      }
+      .qr-grid {
+        width: 100%;
+        height: 100%;
+        background:
+          linear-gradient(90deg, #111 10%, transparent 10%) 0 0 / 0.15rem 0.15rem,
+          linear-gradient(#111 10%, transparent 10%) 0 0 / 0.15rem 0.15rem,
+          linear-gradient(90deg, transparent 50%, #111 50%) 0 0 / 0.0833rem 0.0833rem,
+          linear-gradient(transparent 50%, #111 50%) 0 0 / 0.0833rem 0.0833rem;
+      }
+      .footer-meta {
+        padding: 0.1rem 0 0.1333rem;
+        border-top: 0.0083rem solid rgba(255, 255, 255, 0.08);
+        text-align: center;
+        color: rgba(220, 228, 246, 0.45);
+        font-size: 0.0917rem;
+        line-height: 0.15rem;
+      }
+          .hero-nav:hover,
+      .hero-nav:hover .site-nav,
+      .hero-nav:hover .nav-trigger,
+      .hero-nav:hover .site-nav-item {
+        color: #16315d;
+      }
+      .hero-nav:hover::before {
+        background: #ffffff;
+      }
+      .hero-nav:hover .site-nav {
+        color: #5e6f8d;
+      }
+      .hero-nav:hover .nav-trigger img {
+        filter: brightness(0) saturate(100%) invert(43%) sepia(11%) saturate(1257%) hue-rotate(181deg) brightness(91%) contrast(86%);
+      }
+      .hero-nav:hover .nav-dropdown:hover > .nav-trigger img,
+      .hero-nav:hover .nav-dropdown.active > .nav-trigger img,
+      .hero-nav:hover .nav-dropdown.is-open > .nav-trigger img {
+        filter: brightness(0) saturate(100%) invert(43%) sepia(96%) saturate(3185%) hue-rotate(208deg) brightness(102%) contrast(102%);
+      }
+      .nav-dropdown:hover .nav-dropdown-panel {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+      .hero-section:has(.nav-dropdown:hover) .nav-dropdown-mask {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }</style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <div class="page-canvas">
+        <section class="hero-section">
+          <img
+            src="./public/figma-assets/hero-image.png"
+            alt="千匠云阵战略升级主视觉"
+            class="hero-art"
+          />
+          <div class="hero-overlay"></div>
+
+          <div class="nav-dropdown-mask" id="navDropdownMask"></div>
+          <header class="hero-nav" id="siteHeader">
+            <div class="hero-nav-inner">
+              <div class="brand">
+                <span class="brand-logo"><img src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><path fill="%232b78ff" d="M6 5h30a3 3 0 0 1 3 3v25a3 3 0 0 1-3 3H17.6L8.3 44A1.7 1.7 0 0 1 6 42.7V8a3 3 0 0 1 3-3Z"/><path fill="%23fff" d="M14 13h18v5H20v3h9a3 3 0 0 1 3 3v9H15v-5h12v-3h-8a5 5 0 0 1-5-5v-7Z"/><path fill="%232b78ff" d="M19 15.5h10v1.6H19zm0 11h10v1.6H19z"/></svg>' alt="千匠网络 logo" /></span>
+              </div>
+              <nav class="site-nav" aria-label="官网主导航">
+                <a class="site-nav-item active" href="#" data-nav-key="home">首页</a>
+                <div class="nav-dropdown" id="productDropdown" data-nav-key="product">
+                  <div class="nav-trigger" id="productDropdownTrigger" role="button" tabindex="0" aria-expanded="false" aria-controls="productDropdownPanel">
+                    <span>产品</span>
+                    <img src="./public/figma-assets/nav-arrow.svg" alt="" />
+                  </div>
+                  <div class="nav-dropdown-panel" id="productDropdownPanel">
+                    <div class="nav-dropdown-surface">
+                      <div class="nav-product-grid">
+                        <section class="nav-product-group">
+                          <h4 class="nav-product-group-title">产业电商云</h4>
+                          <ul class="nav-product-list">
+                            <li><a class="nav-product-link is-selected" href="#">S2B供应链平台</a></li>
+                            <li><a class="nav-product-link" href="#">BBC多商户平台</a></li>
+                            <li><a class="nav-product-link" href="#">积分福利商城</a></li>
+                            <li><a class="nav-product-link" href="#">B2B分销订货</a></li>
+                            <li><a class="nav-product-link" href="#">B2C零售商城</a></li>
+                            <li><a class="nav-product-link" href="#">营销服务平台(SaaS)</a></li>
+                          </ul>
+                        </section>
+                        <section class="nav-product-group">
+                          <h4 class="nav-product-group-title">供应链协同云</h4>
+                          <ul class="nav-product-list">
+                            <li><a class="nav-product-link" href="#">WMS仓储管理系统</a></li>
+                            <li><a class="nav-product-link" href="#">TMS物流管理系统</a></li>
+                            <li><a class="nav-product-link" href="#">供应链金融</a></li>
+                          </ul>
+                        </section>
+                        <section class="nav-product-group">
+                          <h4 class="nav-product-group-title">智能决策云</h4>
+                          <ul class="nav-product-list">
+                            <li><a class="nav-product-link" href="#">AI Agent</a></li>
+                            <li><a class="nav-product-link" href="#">AI BI</a></li>
+                          </ul>
+                        </section>
+                        <section class="nav-product-group">
+                          <h4 class="nav-product-group-title">中台</h4>
+                          <ul class="nav-product-list">
+                            <li><a class="nav-product-link" href="#">技术中台</a></li>
+                            <li><a class="nav-product-link" href="#">业务中台</a></li>
+                            <li><a class="nav-product-link" href="#">AI中台</a></li>
+                          </ul>
+                        </section>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <a class="site-nav-item" href="#" data-nav-key="solution">解决方案</a>
+                <a class="site-nav-item" href="#" data-nav-key="qianjiang-ai">千匠问天</a>
+                <a class="site-nav-item" href="#" data-nav-key="manus">星云AIManus智能平台</a>
+                <a class="site-nav-item" href="#" data-nav-key="about">关于千匠</a>
+                <a class="site-nav-item" href="tel:4009903366" data-nav-key="phone">400-990-3366</a>
+              </nav>
+            </div>
+          </header>
+
+          <div class="hero-copy">
+            <div class="hero-kicker">strategic upgrade</div>
+            <h1>千匠战略升级</h1>
+            <div class="hero-line"></div>
+            <p>
+              AI驱动的产业电商与供应链解决方案服务商<br />
+              以营销和AI技术，赋能产业商业增长。
+            </p>
+          </div>
+        </section>
+
+        <main>
+          <section class="section platform-section">
+            <div class="section-title-wrap narrow">
+              <h2>千匠星云平台</h2>
+              <p>
+                基于“一星三云”架构，全面赋能产业数字化转型升级。“一星”即千匠星云PaaS平台，作为体系的技术基石与能力中枢，提供稳定、灵活、可扩展的底层支撑。“三云”则是在PaaS平台上构建的三大核心业务能力云，覆盖产业数字化的关键业务场景。
+              </p>
+            </div>
+
+            <div class="platform-panel">
+              <div class="cloud-grid">
+                <article class="cloud-item">
+                  <div class="cloud-icon">
+                    <img src="./public/figma-assets/platform-icon-1.svg" alt="" />
+                  </div>
+                  <div>
+                    <h3>产业电商云</h3>
+                    <p>涵盖采销、分销、零售，打通从采购到零售的全链路交易场景。</p>
+                  </div>
+                </article>
+                <article class="cloud-item">
+                  <div class="cloud-icon">
+                    <img src="./public/figma-assets/platform-icon-2.svg" alt="" />
+                  </div>
+                  <div>
+                    <h3>供应链协同云</h3>
+                    <p>聚焦供给端与流通端协同，提供智能仓储、智慧物流、供应链商品池等一体化解决方案。</p>
+                  </div>
+                </article>
+                <article class="cloud-item">
+                  <div class="cloud-icon">
+                    <img src="./public/figma-assets/platform-icon-3.svg" alt="" />
+                  </div>
+                  <div>
+                    <h3>智能决策云</h3>
+                    <p>依托人工智能与大数据能力，打造可感知、可预测、可优化的智能决策体系。</p>
+                  </div>
+                </article>
+              </div>
+
+              <div class="platform-banner">
+                <img
+                  src="./public/figma-assets/platform-banner.png"
+                  alt="平台能力"
+                  class="platform-banner-bg"
+                />
+                <img
+                  src="./public/figma-assets/platform-pill.png"
+                  alt="千匠星云PaaS平台"
+                  class="platform-pill"
+                />
+                <div class="platform-copy">
+                  <h3>全渠道营销中台（千匠星云PaaS平台）</h3>
+                  <p>PaaS AI智能中台 领域模型和服务 数据存储与处理 API开放与治理</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section empower-section">
+            <div class="section-title-wrap medium">
+              <h2>千匠赋能体系</h2>
+              <p>围绕“产业链数字化赋能”核心，我们构建七大赋能体系，助力企业实现全链路升级</p>
+            </div>
+
+            <div class="empower-layout">
+              <aside class="empower-sidebar" id="empowerSidebar">
+                <button class="empower-tab active" type="button" data-empower-key="trade"><img src="./public/figma-assets/tab-1.svg" alt="" /><span>全渠道交易赋能</span></button>
+                <button class="empower-tab" type="button" data-empower-key="ai"><img src="./public/figma-assets/tab-2.svg" alt="" /><span>AI智能赋能</span></button>
+                <button class="empower-tab" type="button" data-empower-key="global"><img src="./public/figma-assets/tab-3.svg" alt="" /><span>产业链跨境出海赋能</span></button>
+                <button class="empower-tab" type="button" data-empower-key="supply"><img src="./public/figma-assets/tab-4.svg" alt="" /><span>供应链商品赋能</span></button>
+                <button class="empower-tab" type="button" data-empower-key="logistics"><img src="./public/figma-assets/tab-5.svg" alt="" /><span>智慧物流与仓储赋能</span></button>
+                <button class="empower-tab" type="button" data-empower-key="finance"><img src="./public/figma-assets/tab-6.svg" alt="" /><span>产业链金融赋能</span></button>
+                <button class="empower-tab" type="button" data-empower-key="ecosystem"><img src="./public/figma-assets/tab-7.svg" alt="" /><span>产业链生态共建赋能</span></button>
+              </aside>
+
+              <div class="empower-stage">
+                <div class="empower-stage-copy">
+                  <h3 id="empowerTitle">全渠道交易赋能</h3>
+                  <p id="empowerDesc">千匠产业链平台以产业数字化为核心引擎，连接线下商业场景与线上交易生态，通过“端 + 云”一体化体系，实现人、货、场、链的全面联通。平台覆盖采购、供应、仓配、结算、金融等全链路业务，构建产业级交易与协同网络。</p>
+                </div>
+                <div class="empower-board">
+                  <div class="empower-board-top">
+                    <div class="empower-board-tabs" id="empowerTopTabs"></div>
+                    <div class="empower-board-tag" id="empowerBoardTag">协同中枢</div>
+                  </div>
+                  <div class="empower-board-grid" id="empowerBoardGrid"></div>
+                  <div class="empower-footer" id="empowerFooter"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="section industry-section">
+            <div class="section-title-wrap medium">
+              <h2>行业深度实践</h2>
+              <p>我们深入理解不同产业的商业逻辑与运营挑战，以可配置、可扩展的数字化产品矩阵，助力企业实现业务模式创新与可持续增长。</p>
+            </div>
+
+            <div class="industry-grid">
+              <article class="industry-card tone-retail">
+                <div class="industry-badge"></div>
+                <div class="industry-mask"></div>
+                <div class="industry-copy">
+                  <h3>零售行业</h3>
+                  <p>重构全渠道会员与交易链路</p>
+                </div>
+              </article>
+              <article class="industry-card tone-home">
+                <div class="industry-badge"></div>
+                <div class="industry-mask"></div>
+                <div class="industry-copy">
+                  <h3>家电行业</h3>
+                  <p>打通采销协同与服务履约</p>
+                </div>
+              </article>
+              <article class="industry-card tone-auto">
+                <div class="industry-badge"></div>
+                <div class="industry-mask"></div>
+                <div class="industry-copy">
+                  <h3>汽车行业</h3>
+                  <p>沉淀经销、备件与服务体系</p>
+                </div>
+              </article>
+              <article class="industry-card tone-manufacture">
+                <div class="industry-badge"></div>
+                <div class="industry-mask"></div>
+                <div class="industry-copy">
+                  <h3>制造行业</h3>
+                  <p>连接渠道、仓配与供应网络</p>
+                </div>
+              </article>
+              <article class="industry-card tone-global">
+                <div class="industry-badge"></div>
+                <div class="industry-mask"></div>
+                <div class="industry-copy">
+                  <h3>品牌出海</h3>
+                  <p>支撑跨境分销与本地化运营</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="section partners-section">
+            <div class="section-title-wrap medium">
+              <h2>合作客户</h2>
+              <p>以客户成功为导向，通过持续的技术迭代与专业服务，助力客户在电商转型、供应链协同、智能决策等领域取得显著成效。</p>
+            </div>
+            <div class="partner-shot-wrap">
+              <img
+                class="partner-shot partner-shot-logos"
+                src="./public/figma-assets/partner-section-logos.png"
+                alt="合作客户商标图"
+              />
+            </div>
+          </section>
+
+          <section class="section knowledge-section">
+            <div class="section-title-wrap medium">
+              <h2>知识百科</h2>
+              <p>汇聚产业电商、供应链协同及智能决策等领域的专业知识与前沿洞察</p>
+            </div>
+
+            <div class="knowledge-panel">
+              <div class="knowledge-visual">
+                <div class="visual-card"></div>
+                <div class="visual-orb"></div>
+                <div class="visual-ring"></div>
+              </div>
+              <div class="knowledge-copy">
+                <div class="knowledge-tag">AI 行业研究</div>
+                <h3>以实践沉淀方法，用内容放大价值</h3>
+                <p>从产业运营、渠道协同、供应链优化到智能决策，我们持续输出面向产业客户的知识体系，帮助企业更快理解数字化升级路径。</p>
+                <ul>
+                  <li>产业电商平台建设的四个关键路径</li>
+                  <li>从供给协同到履约协同的流程升级</li>
+                  <li>AI 如何进入营销、定价与预测环节</li>
+                  <li>企业建设产业互联网平台的组织方法</li>
+                  <li>跨境出海业务的交易与供应链模型</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <footer class="footer-section">
+          <div class="footer-inner">
+            <div class="footer-brand-block">
+              <div class="brand footer-brand">
+                <span class="brand-logo"><img src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><path fill="%232b78ff" d="M6 5h30a3 3 0 0 1 3 3v25a3 3 0 0 1-3 3H17.6L8.3 44A1.7 1.7 0 0 1 6 42.7V8a3 3 0 0 1 3-3Z"/><path fill="%23fff" d="M14 13h18v5H20v3h9a3 3 0 0 1 3 3v9H15v-5h12v-3h-8a5 5 0 0 1-5-5v-7Z"/><path fill="%232b78ff" d="M19 15.5h10v1.6H19zm0 11h10v1.6H19z"/></svg>' alt="千匠网络 logo" /></span>
+              </div>
+              <p>AI驱动的产业电商与供应链解决方案服务商</p>
+            </div>
+
+            <div class="footer-group">
+              <h4>关于千匠</h4>
+              <a href="#">平台介绍</a>
+              <a href="#">行业方案</a>
+              <a href="#">成功案例</a>
+              <a href="#">联系我们</a>
+            </div>
+
+            <div class="footer-group">
+              <h4>热门产品</h4>
+              <a href="#">产业电商云</a>
+              <a href="#">供应链协同云</a>
+              <a href="#">智能决策云</a>
+              <a href="#">星云PaaS平台</a>
+            </div>
+
+            <div class="footer-group">
+              <h4>热门行业解决方案</h4>
+              <a href="#">家电行业解决方案</a>
+              <a href="#">汽车行业解决方案</a>
+              <a href="#">制造行业解决方案</a>
+              <a href="#">品牌出海解决方案</a>
+            </div>
+
+            <div class="footer-contact">
+              <h4>销售电话: 400-990-3366</h4>
+              <div class="qr-box"><div class="qr-grid"></div></div>
+              <p>上海市 · 徐汇区</p>
+              <p>工作日 9:00-18:00</p>
+            </div>
+          </div>
+          <div class="footer-meta">© 2025 上海千匠网络科技有限公司 版权所有 沪ICP备15010931号</div>
+        </footer>
+      </div>
+    </div>
+              <script>
+      (function () {
+        var empowerData = {
+          trade: {
+            title: "全渠道交易赋能",
+            desc: "千匠产业链平台以产业数字化为核心引擎，连接线下商业场景与线上交易生态，通过“端 + 云”一体化体系，实现人、货、场、链的全面联通。平台覆盖采购、供应、仓配、结算、金融等全链路业务，构建产业级交易与协同网络。",
+            topTabs: ["订货平台", "零售商城", "渠道分销", "会员运营", "营销中台", "结算中心"],
+            boardTag: "交易中枢",
+            cards: [
+              ["订货商城", "多角色在线订货与协同交易"],
+              ["B2B交易平台", "支撑经销、集采与渠道业务"],
+              ["B2C商城", "线上零售与品牌直连经营"],
+              ["私域零售", "社群、导购与会员复购转化"],
+              ["价格体系", "分层定价与渠道策略控制"],
+              ["订单协同", "从下单到履约的全链路协同"],
+              ["客户中心", "客户分层、画像与生命周期管理"],
+              ["开放平台", "多端接入与生态能力集成"]
+            ],
+            footer: ["商品中台", "促销中心", "规则引擎", "数据驾驶舱", "结算中心"]
+          },
+          ai: {
+            title: "AI智能赋能",
+            desc: "围绕营销、运营、服务与决策等核心场景，千匠将 AI 能力深入业务流程，帮助企业实现智能分析、智能推荐、智能客服与智能经营优化。",
+            topTabs: ["智能客服", "推荐引擎", "经营分析", "营销洞察", "预测模型", "自动化流程"],
+            boardTag: "AI引擎",
+            cards: [
+              ["AI Agent", "多场景智能代理与业务协作"],
+              ["AI BI", "智能分析与经营趋势识别"],
+              ["智能推荐", "基于行为数据提升转化效率"],
+              ["内容生成", "辅助营销内容与商品素材生成"],
+              ["智能问答", "售前售后知识服务自动响应"],
+              ["经营预测", "销量、库存与需求预测预警"],
+              ["策略优化", "投放、价格与活动策略优化"],
+              ["数据智能", "多维数据治理与模型训练"]
+            ],
+            footer: ["分析洞察", "策略推荐", "自动执行", "模型训练", "业务闭环"]
+          },
+          global: {
+            title: "产业链跨境出海赋能",
+            desc: "通过跨境交易、国际履约、本地化运营与全球渠道协同能力，帮助产业客户拓展海外市场，构建稳定可持续的全球业务网络。",
+            topTabs: ["跨境商城", "本地化运营", "国际物流", "全球支付", "多语言", "海外渠道"],
+            boardTag: "全球业务",
+            cards: [
+              ["跨境交易", "多币种、多站点统一经营"],
+              ["国际履约", "跨仓发货与物流节点协同"],
+              ["本地化内容", "多语言、多时区、多规则适配"],
+              ["全球营销", "海外渠道获客与品牌传播"],
+              ["海外分销", "区域代理与渠道协同管理"],
+              ["支付结算", "跨境收款与资金流转支持"],
+              ["税务合规", "订单税费与合规规则处理"],
+              ["经营看板", "全球业务视图统一分析"]
+            ],
+            footer: ["多站点", "多币种", "国际物流", "海外仓", "渠道协同"]
+          },
+          supply: {
+            title: "供应链商品赋能",
+            desc: "围绕商品组织、供给管理、采购协同与商品池建设，提升产业链的商品运营效率与供给稳定性，支撑前台多场景业务快速响应。",
+            topTabs: ["商品池", "采购协同", "供给管理", "价格策略", "库存共享", "生命周期"],
+            boardTag: "商品中台",
+            cards: [
+              ["商品池管理", "统一商品主数据与多渠道分发"],
+              ["供给协同", "供应商、采购与交付一体化协作"],
+              ["采购计划", "基于需求预测制定采购节奏"],
+              ["库存共享", "多仓、多组织库存统一调度"],
+              ["价格治理", "商品价格与渠道策略协同"],
+              ["生命周期", "上新、促销、清退全周期管理"],
+              ["商品分析", "结构、动销与供给健康度评估"],
+              ["规则引擎", "按业务规则动态控制商品策略"]
+            ],
+            footer: ["供给稳定", "快速上新", "价格治理", "库存共享", "渠道协同"]
+          },
+          logistics: {
+            title: "智慧物流与仓储赋能",
+            desc: "通过仓储管理、物流协同、路由调度与履约监控能力，帮助企业优化仓配效率，提升发货准确率与交付体验。",
+            topTabs: ["WMS", "TMS", "仓配调度", "履约监控", "路由策略", "异常预警"],
+            boardTag: "仓配网络",
+            cards: [
+              ["WMS仓储", "库位、波次、作业与库存精细管理"],
+              ["TMS物流", "运输计划、承运商与轨迹协同"],
+              ["智能路由", "按时效、成本和库存动态分单"],
+              ["履约监控", "订单全过程节点追踪与预警"],
+              ["仓网协同", "多仓联动与区域履约优化"],
+              ["逆向物流", "退货、换货与售后仓配协同"],
+              ["时效优化", "交付时效与成本平衡策略"],
+              ["可视看板", "仓配状态统一运营视图"]
+            ],
+            footer: ["仓储协同", "运输协同", "智能分单", "异常预警", "履约监控"]
+          },
+          finance: {
+            title: "产业链金融赋能",
+            desc: "满足产业供应链平台各类支付及金融场景，支持多种支付方式、为上下游提供多样化供应链金融能力、对接金融机构提供各类金融服务，缓解各方资金压力、加速资金流转。",
+            topTabs: ["聚合支付", "授信支持", "保理服务", "账期管理", "金融对接", "风险控制"],
+            boardTag: "金融服务",
+            cards: [
+              ["聚合支付", "支持多渠道收付款与统一结算"],
+              ["供应链金融", "为上下游提供融资支持能力"],
+              ["授信管理", "客户、渠道与伙伴额度管理"],
+              ["账期结算", "账期规则、对账与回款协同"],
+              ["机构对接", "连接银行及金融服务机构"],
+              ["风险控制", "交易风控与资金安全管理"],
+              ["资金流转", "提升资金周转与业务效率"],
+              ["经营保障", "缓解链路资金压力与经营风险"]
+            ],
+            footer: ["支付能力", "金融协同", "授信管理", "风控治理", "资金周转"]
+          },
+          ecosystem: {
+            title: "产业链生态共建赋能",
+            desc: "通过开放平台、伙伴协同、服务接入与生态运营机制，连接产业上下游资源，形成共享共赢的生态体系与可持续增长能力。",
+            topTabs: ["开放接口", "伙伴接入", "服务市场", "能力复用", "生态运营", "联合创新"],
+            boardTag: "生态平台",
+            cards: [
+              ["开放平台", "标准接口与能力快速接入"],
+              ["伙伴协同", "连接软件、服务与渠道伙伴"],
+              ["服务市场", "生态能力统一展示与管理"],
+              ["能力复用", "模块化沉淀行业能力组件"],
+              ["联合方案", "共建面向行业的解决方案"],
+              ["运营赋能", "生态伙伴经营与成长支持"],
+              ["资源连接", "链接上下游资源与业务网络"],
+              ["价值共创", "推动产业生态持续增长"]
+            ],
+            footer: ["开放接入", "伙伴生态", "能力复用", "联合创新", "价值共创"]
+          }
+        };
+
+        function renderEmpower(key) {
+          var data = empowerData[key];
+          if (!data) return;
+          var title = document.getElementById("empowerTitle");
+          var desc = document.getElementById("empowerDesc");
+          var topTabs = document.getElementById("empowerTopTabs");
+          var grid = document.getElementById("empowerBoardGrid");
+          var footer = document.getElementById("empowerFooter");
+          var tag = document.getElementById("empowerBoardTag");
+          if (title) title.textContent = data.title;
+          if (desc) desc.textContent = data.desc;
+          if (tag) tag.textContent = data.boardTag;
+          if (topTabs) {
+            topTabs.innerHTML = data.topTabs.map(function (item) {
+              return '<div class="empower-board-tab">' + item + '</div>';
+            }).join('');
+          }
+          if (grid) {
+            grid.innerHTML = data.cards.map(function (item) {
+              return '<article class="empower-card"><div class="empower-card-icon"></div><h4>' + item[0] + '</h4><p>' + item[1] + '</p></article>';
+            }).join('');
+          }
+          if (footer) {
+            footer.innerHTML = data.footer.map(function (item) {
+              return '<div class="empower-footer-item">' + item + '</div>';
+            }).join('');
+          }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          var tabs = Array.prototype.slice.call(document.querySelectorAll(".empower-tab"));
+          if (!tabs.length) return;
+          tabs.forEach(function (tab) {
+            tab.addEventListener("click", function () {
+              tabs.forEach(function (item) { item.classList.remove("active"); });
+              tab.classList.add("active");
+              renderEmpower(tab.getAttribute("data-empower-key"));
+            });
+          });
+          renderEmpower("trade");
+        });
+
+      })();
+
+      (function () {
+        var header = document.getElementById("siteHeader");
+        var dropdown = document.getElementById("productDropdown");
+        var trigger = document.getElementById("productDropdownTrigger");
+        var panel = document.getElementById("productDropdownPanel");
+        var mask = document.getElementById("navDropdownMask");
+        var surface = panel ? panel.querySelector(".nav-dropdown-surface") : null;
+        var navItems = Array.prototype.slice.call(document.querySelectorAll(".site-nav-item"));
+        var productLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-product-link"));
+        var defaultActiveItem = document.querySelector(".site-nav-item.active");
+        var defaultActiveKey = defaultActiveItem ? defaultActiveItem.getAttribute("data-nav-key") : "";
+        var defaultSelectedProduct = document.querySelector(".nav-product-link.is-selected");
+        var isHeaderHovered = false;
+        var closeTimer = null;
+        if (!header) return;
+
+        function clearCloseTimer() {
+          if (!closeTimer) return;
+          clearTimeout(closeTimer);
+          closeTimer = null;
+        }
+
+        function setActiveNav(key) {
+          navItems.forEach(function (item) {
+            item.classList.toggle("active", item.getAttribute("data-nav-key") === key);
+          });
+          if (dropdown) {
+            var active = key === "product";
+            dropdown.classList.toggle("active", active || dropdown.classList.contains("is-open"));
+          }
+        }
+
+        function restoreDefaultActive() {
+          setActiveNav(defaultActiveKey);
+        }
+
+        function setProductHover(link) {
+          productLinks.forEach(function (item) {
+            item.classList.toggle("is-selected", item === link);
+          });
+        }
+
+        function restoreDefaultProduct() {
+          if (!defaultSelectedProduct) return;
+          setProductHover(defaultSelectedProduct);
+        }
+
+        function positionDropdown() {
+          if (!trigger || !panel || !surface) return;
+          var triggerRect = trigger.getBoundingClientRect();
+          var panelRect = panel.getBoundingClientRect();
+          var panelWidth = panelRect.width || panel.offsetWidth || 962;
+          var viewportWidth = window.innerWidth;
+          var margin = 24;
+          var triggerCenter = triggerRect.left + triggerRect.width / 2;
+          var panelLeft = Math.min(
+            Math.max(triggerCenter - panelWidth / 2, margin),
+            viewportWidth - panelWidth - margin
+          );
+          panel.style.left = panelLeft + "px";
+          surface.style.setProperty("--dropdown-arrow-left", triggerCenter - panelLeft + "px");
+        }
+
+        function syncHeaderState() {
+          var hasMenu = dropdown && dropdown.classList.contains("is-open");
+          var shouldSolid = window.scrollY > 12 || hasMenu;
+          header.classList.toggle("is-solid", shouldSolid);
+          header.classList.toggle("is-hover", isHeaderHovered && !hasMenu);
+        }
+
+        function openDropdown() {
+          if (!dropdown) return;
+          clearCloseTimer();
+          positionDropdown();
+          dropdown.classList.add("is-open");
+          dropdown.classList.add("active");
+          header.classList.add("is-menu-open");
+          if (mask) mask.classList.add("is-visible");
+          if (trigger) trigger.setAttribute("aria-expanded", "true");
+          setActiveNav("product");
+          syncHeaderState();
+        }
+
+        function closeDropdown(immediate) {
+          if (!dropdown) return;
+          clearCloseTimer();
+          var run = function () {
+            dropdown.classList.remove("is-open");
+            dropdown.classList.remove("active");
+            header.classList.remove("is-menu-open");
+            if (mask) mask.classList.remove("is-visible");
+            if (trigger) trigger.setAttribute("aria-expanded", "false");
+            restoreDefaultActive();
+            restoreDefaultProduct();
+            syncHeaderState();
+          };
+
+          if (immediate) {
+            run();
+            return;
+          }
+
+          closeTimer = setTimeout(run, 80);
+        }
+
+        window.addEventListener(
+          "scroll",
+          function () {
+            positionDropdown();
+            syncHeaderState();
+          },
+          { passive: true }
+        );
+        window.addEventListener("resize", positionDropdown);
+        window.addEventListener("load", function () {
+          positionDropdown();
+          syncHeaderState();
+        });
+        restoreDefaultActive();
+        restoreDefaultProduct();
+        positionDropdown();
+        syncHeaderState();
+
+        header.addEventListener("mouseenter", function () {
+          isHeaderHovered = true;
+          clearCloseTimer();
+          syncHeaderState();
+        });
+        header.addEventListener("mouseleave", function () {
+          isHeaderHovered = false;
+          closeDropdown();
+          syncHeaderState();
+        });
+
+        navItems.forEach(function (item) {
+          item.addEventListener("mouseenter", function () {
+            if (dropdown && dropdown.classList.contains("is-open")) {
+              closeDropdown(true);
+            }
+          });
+        });
+
+        if (dropdown) {
+          dropdown.addEventListener("mouseenter", openDropdown);
+          dropdown.addEventListener("mouseleave", function () {
+            closeDropdown();
+          });
+        }
+
+        if (trigger) {
+          trigger.addEventListener("click", function (event) {
+            event.preventDefault();
+            if (dropdown.classList.contains("is-open")) {
+              closeDropdown(true);
+            } else {
+              openDropdown();
+            }
+          });
+          trigger.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              if (dropdown.classList.contains("is-open")) {
+                closeDropdown(true);
+              } else {
+                openDropdown();
+              }
+            }
+            if (event.key === "Escape") {
+              closeDropdown(true);
+            }
+          });
+        }
+
+        if (panel) {
+          panel.addEventListener("mouseenter", function () {
+            clearCloseTimer();
+          });
+          panel.addEventListener("mouseleave", function () {
+            closeDropdown();
+          });
+        }
+
+        productLinks.forEach(function (link) {
+          link.addEventListener("mouseenter", function () {
+            setProductHover(link);
+            clearCloseTimer();
+          });
+          link.addEventListener("focus", function () {
+            setProductHover(link);
+          });
+        });
+
+        if (mask) {
+          mask.addEventListener("click", function () {
+            closeDropdown(true);
+          });
+          mask.addEventListener("mouseenter", function () {
+            closeDropdown(true);
+          });
+        }
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") closeDropdown(true);
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!dropdown) return;
+          if (!dropdown.contains(event.target) && !header.contains(event.target)) {
+            closeDropdown(true);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+
