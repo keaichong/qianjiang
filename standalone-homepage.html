@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
@@ -60,6 +60,21 @@
       body { margin: 0; min-width: 1200px; background: #ffffff; overflow-x: auto; }
       a { color: inherit; text-decoration: none; }
       img { display: block; }
+      .side-floating-icons {
+        position: fixed;
+        right: 40px;
+        top: 50%;
+        z-index: 40;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        transform: translateY(-50%);
+      }
+      .side-floating-icons img {
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+      }
       .page-shell { display: flex; justify-content: center; min-width: 1200px; background: #ffffff; }
       .page-canvas { width: 100%; min-width: 1200px; }
 
@@ -101,7 +116,7 @@
         width: 100%;
         min-width: 1200px;
         height: 0.7rem;
-        padding: 0 0.3333rem;
+        padding: 0;
         transform: translateX(-50%);
         z-index: 30;
         isolation: isolate;
@@ -135,14 +150,26 @@
         z-index: 1;
         display: flex;
         align-items: center;
-        width: var(--canvas-width);
+        justify-content: flex-start;
+        gap: 0.4167rem;
+        width: max(11.3rem, 1200px);
+        min-width: 1200px;
+        flex: none;
+        padding-left: 0;
         margin: 0 auto;
       }
-      .brand { display: flex; align-items: center; gap: 0; margin-right: 0.24rem; }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-right: 0;
+        flex: none;
+        flex-shrink: 0;
+      }
       .brand-logo {
         position: relative;
-        width: 1.08rem;
-        height: 0.24rem;
+        width: 2rem;
+        height: 0.775rem;
         flex: none;
         overflow: hidden;
       }
@@ -180,10 +207,12 @@
       .site-nav {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
-        gap: 0.3rem;
-        flex: 1;
-        margin-left: auto;
+        justify-content: flex-start;
+        gap: 0.4167rem;
+        flex: none;
+        flex-shrink: 0;
+        min-width: max-content;
+        margin-left: 0;
         font-size: 0.15rem;
         line-height: 0.2rem;
         color: rgba(255, 255, 255, 0.78);
@@ -201,6 +230,8 @@
         align-items: center;
         gap: 0.05rem;
         height: 0.3833rem;
+        flex: none;
+        flex-shrink: 0;
         white-space: nowrap;
         font-weight: 400;
         color: inherit;
@@ -210,6 +241,17 @@
       .nav-dropdown:hover,
       .nav-dropdown.is-open {
         color: #1b63e8;
+      }
+      .site-nav-item:hover::after,
+      .nav-dropdown:hover > .nav-trigger::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -0.0333rem;
+        height: 0.025rem;
+        border-radius: 999px;
+        background: #1456d9;
       }
       .site-nav-item.active,
       .nav-dropdown.active,
@@ -247,7 +289,13 @@
         border-radius: 999px;
         background: #1456d9;
       }
-      .site-nav img,
+      .hero-nav:not(.is-menu-open) .site-nav:hover .site-nav-item.active:not(:hover) {
+        color: #5e6f8d;
+        font-weight: 400;
+      }
+      .hero-nav:not(.is-menu-open) .site-nav:hover .site-nav-item.active:not(:hover)::after {
+        content: none;
+      }
       .nav-trigger img {
         width: 0.1rem;
         height: 0.1rem;
@@ -292,6 +340,9 @@
         transform: translateY(-0.05rem);
         transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
         z-index: 29;
+      }
+      .nav-dropdown-panel.nav-dropdown-panel-compact {
+        width: 2.7rem;
       }
       .nav-dropdown.is-open .nav-dropdown-panel {
         opacity: 1;
@@ -354,13 +405,11 @@
         font-weight: 700;
         color: #171717;
       }
-      .nav-product-group-title::before {
-        content: "";
-        width: 0.1167rem;
-        height: 0.1167rem;
-        border-radius: 0.025rem;
-        background: linear-gradient(135deg, #58a1ff 0%, #277fff 100%);
-        box-shadow: 0 0.0333rem 0.075rem rgba(39, 127, 255, 0.28);
+      .nav-product-group-title img {
+        width: 0.1667rem;
+        height: 0.1667rem;
+        flex: none;
+        object-fit: contain;
       }
       .nav-product-list {
         margin: 0.1333rem 0 0;
@@ -370,7 +419,8 @@
       .nav-product-list li + li {
         margin-top: 0.1083rem;
       }
-      .nav-product-link {
+      .nav-product-link,
+      .nav-about-link {
         display: flex;
         align-items: center;
         gap: 0.0583rem;
@@ -381,9 +431,13 @@
         line-height: 0.2667rem;
         color: #7c8697;
         border-radius: 0.0167rem;
-        transition: background-color 0.22s ease, color 0.22s ease, transform 0.22s ease;
+        transition: background-color 0.22s ease, color 0.22s ease, padding-left 0.22s ease;
       }
-      .nav-product-link::before {
+      .nav-link-text {
+        display: inline-block;
+      }
+      .nav-product-link::before,
+      .nav-about-link::before {
         content: "";
         display: block;
         width: 0.1083rem;
@@ -391,27 +445,80 @@
         flex: none;
         background: url("./public/figma-assets/Polygon.png") center / contain no-repeat;
       }
-      .nav-product-link:hover {
+      .nav-product-link:hover,
+      .nav-about-link:hover {
         color: #ffffff;
         background: #277fff;
-        transform: translateX(0.0167rem);
+        padding-left: 0.2rem;
       }
-      .nav-product-link:hover::before {
+      .nav-product-link:hover::before,
+      .nav-about-link:hover::before {
         filter: brightness(0) invert(1);
       }
-      .nav-product-link.is-selected {
+      .nav-product-link.is-selected,
+      .nav-about-link.is-selected {
         color: #ffffff;
         background: #277fff;
+        padding-left: 0.2rem;
       }
-      .nav-product-link.is-selected::before {
+      .nav-product-link.is-selected::before,
+      .nav-about-link.is-selected::before {
         filter: brightness(0) invert(1);
+      }
+      .nav-about-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .nav-solution-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(2.55rem, 1fr));
+        column-gap: 0.1667rem;
+        row-gap: 0;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+      .nav-solution-link {
+        display: flex;
+        align-items: center;
+        gap: 0.0583rem;
+        width: 100%;
+        min-height: 0.2667rem;
+        padding: 0 0.0667rem;
+        font-size: 0.1167rem;
+        line-height: 0.2667rem;
+        color: #7c8697;
+        border-radius: 0.0167rem;
+        transition: background-color 0.22s ease, color 0.22s ease, padding-left 0.22s ease;
+      }
+      .nav-solution-link::before {
+        content: "";
+        display: block;
+        width: 0.1083rem;
+        height: 0.095rem;
+        flex: none;
+        background: url("./public/figma-assets/Polygon.png") center / contain no-repeat;
+      }
+      .nav-solution-link:hover,
+      .nav-solution-link.is-selected {
+        color: #ffffff;
+        background: #277fff;
+        padding-left: 0.2rem;
+      }
+      .nav-solution-link:hover::before,
+      .nav-solution-link.is-selected::before {
+        filter: brightness(0) invert(1);
+      }
+      .nav-about-list li + li {
+        margin-top: 0.1083rem;
       }
       .hero-copy {
         position: absolute;
         left: 50%;
         top: 28.7958%;
-        width: var(--canvas-width);
-        padding-left: 0.3167rem;
+        width: 11.3rem;
+        padding-left: 0;
         transform: translateX(-50%);
         z-index: 2;
       }
@@ -448,45 +555,77 @@
 
       .platform-section { padding-top: 0.6667rem; }
       .platform-panel {
-        width: var(--canvas-width);
-        height: 4.125rem;
+        width: 11.3rem;
         margin: 0.2667rem auto 0;
-        padding: 0.3333rem 0.2833rem 0;
+        padding: 0.2833rem 0 0;
         border-radius: 0.2rem;
-        background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-        box-shadow: var(--panel-shadow);
+        background: linear-gradient(180deg, #eef4ff 0%, #ebf2ff 100%);
+        overflow: hidden;
       }
       .cloud-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 0.25rem;
+        gap: 0.1667rem;
+        padding: 0 0.3333rem;
       }
       .cloud-item {
         display: flex;
-        gap: 0.1333rem;
-        padding: 0.2333rem 0.2167rem;
+        align-items: flex-start;
+        gap: 0.1167rem;
+        min-height: 1.6833rem;
+        padding: 0.2333rem 0.1833rem 0.1667rem;
         border-radius: 0.1333rem;
-        background: linear-gradient(180deg, #f9fbff 0%, #f4f8ff 100%);
+        background: #ffffff;
       }
       .cloud-icon {
         display: flex;
         align-items: center;
         justify-content: center;
         flex: none;
-        width: 0.4667rem;
-        height: 0.4667rem;
-        border-radius: 0.15rem;
-        background: radial-gradient(circle at 30% 30%, #ffffff 0%, #d9e8ff 50%, #8db6ff 100%);
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius: 0.1083rem;
+        background: #dce9ff;
       }
-      .cloud-icon img { width: 0.25rem; height: 0.25rem; }
-      .cloud-item h3 { margin: 0; font-size: 0.2rem; line-height: 0.3rem; }
-      .cloud-item p { margin: 0.0833rem 0 0; font-size: 0.1167rem; line-height: 0.225rem; color: var(--body-color); }
+      .cloud-item:nth-child(2) .cloud-icon {
+        background: #dfdfff;
+      }
+      .cloud-item:nth-child(3) .cloud-icon {
+        background: #def9e4;
+      }
+      .cloud-icon img {
+        width: 0.2083rem;
+        height: 0.2083rem;
+      }
+      .cloud-item > div:last-child {
+        flex: 1;
+        min-width: 0;
+        padding-top: 0.025rem;
+      }
+      .cloud-item h3 {
+        margin: 0;
+        font-size: 0.2rem;
+        line-height: 0.2833rem;
+        font-weight: 700;
+        color: #575b63;
+        letter-spacing: 0;
+      }
+      .cloud-item p {
+        margin: 0.1333rem 0 0 -0.5167rem;
+        font-family: "Source Han Sans CN", "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 0.15rem;
+        line-height: 0.225rem;
+        color: #000000;
+        opacity: 0.7;
+        letter-spacing: 0;
+      }
       .platform-banner {
         position: relative;
-        width: calc(100% + 0.5667rem);
-        height: 1.75rem;
-        margin-top: 0.2333rem;
-        margin-left: -0.2833rem;
+        width: 100%;
+        height: 2rem;
+        margin-top: 0.2917rem;
         overflow: hidden;
         border-radius: 0 0 0.2rem 0.2rem;
       }
@@ -494,25 +633,38 @@
         position: absolute;
         inset: 0;
         width: 100%;
-        height: 1.75rem;
+        height: 100%;
         object-fit: cover;
       }
       .platform-pill {
         position: absolute;
-        left: 0.3833rem;
-        top: 0.2917rem;
-        width: 2.0917rem;
-        height: 1.1667rem;
-        border-radius: 0.125rem;
+        left: 0.3333rem;
+        top: 0.35rem;
+        width: 2.1833rem;
+        height: 1.2167rem;
+        border-radius: 0.1rem;
       }
       .platform-copy {
         position: absolute;
-        left: 2.85rem;
-        top: 0.4833rem;
-        right: 0.9167rem;
+        left: 3.05rem;
+        top: 0.5833rem;
+        right: 0.6667rem;
       }
-      .platform-copy h3 { margin: 0; font-size: 0.2333rem; line-height: 0.35rem; color: #111111; }
-      .platform-copy p { margin: 0.1333rem 0 0; font-size: 0.2rem; line-height: 0.3rem; color: #1a1a1a; }
+      .platform-copy h3 {
+        margin: 0;
+        font-size: 0.2417rem;
+        line-height: 0.3333rem;
+        font-weight: 700;
+        color: #05070a;
+        letter-spacing: 0;
+      }
+      .platform-copy p {
+        margin: 0.15rem 0 0;
+        font-size: 0.1417rem;
+        line-height: 0.25rem;
+        color: #111111;
+        letter-spacing: 0;
+      }
 
       .empower-section {
         padding-top: 1.1667rem;
@@ -523,7 +675,7 @@
         display: grid;
         grid-template-columns: 2.6667rem 1fr;
         gap: 0.1333rem;
-        width: var(--canvas-width);
+        width: 11.3rem;
         margin: 0.3333rem auto 0;
         align-items: stretch;
       }
@@ -609,8 +761,8 @@
       }
       .empower-stage-copy h3 {
         margin: 0;
-        font-size: 0.2417rem;
-        line-height: 0.3333rem;
+        font-size: 0.1833rem;
+        line-height: 0.2667rem;
         color: #17191f;
       }
       .empower-stage-trail {
@@ -627,19 +779,30 @@
       }
       .empower-stage-copy p {
         margin: 0;
-        font-size: 0.1417rem;
-        line-height: 0.2583rem;
-        color: #5f6775;
+        font-size: 0.1167rem;
+        color: #000000;
+        min-height: 0.6667rem;
       }
       .empower-stage-visual {
         margin-top: 0.1083rem;
         border-top: 0.0083rem solid #edf3fd;
         padding-top: 0.125rem;
+        width: 100%;
       }
       .empower-stage-visual img {
         display: block;
         width: 100%;
         height: auto;
+      }
+      .empower-stage-note {
+        margin-top: 0.1rem;
+        font-size: 0.1167rem;
+        font-weight: 700;
+        color: #17191f;
+        text-align: center;
+      }
+      .empower-stage-note.is-hidden {
+        display: none;
       }
       .empower-board {
         margin-top: 0.1083rem;
@@ -742,50 +905,68 @@
       .industry-section { padding-top: 0.6333rem; }
       .industry-grid {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 0.1667rem;
+        grid-template-columns: repeat(6, 1.8rem);
+        justify-content: center;
+        gap: 0.1rem;
         width: var(--canvas-width);
-        margin: 0.2833rem auto 0;
+        margin: 0.2833rem auto 0.6667rem;
       }
       .industry-card {
         position: relative;
-        height: 1.3rem;
+        display: block;
+        width: 1.8rem;
+        height: 2.4167rem;
         overflow: hidden;
         border-radius: 0.1rem;
-        box-shadow: 0 0.15rem 0.2333rem rgba(31, 48, 87, 0.2);
+        background: #dfeaf8;
+        box-shadow: 0 0.1333rem 0.2667rem rgba(34, 71, 129, 0.14);
+        transition:
+          transform 0.28s ease,
+          box-shadow 0.28s ease;
       }
-      .industry-badge {
-        position: absolute;
-        left: 50%;
-        top: 0.15rem;
-        width: 0.2833rem;
-        height: 0.2833rem;
-        margin-left: -0.1417rem;
-        border-radius: 50%;
-        background: radial-gradient(circle at 30% 30%, #ffffff 0%, #a8d6ff 45%, #2677ff 100%);
-        z-index: 2;
+      .industry-card:hover {
+        transform: translateY(-0.0333rem);
+        box-shadow: 0 0.1833rem 0.3333rem rgba(34, 71, 129, 0.2);
       }
-      .industry-mask {
+      .industry-card-bg {
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, rgba(17, 24, 38, 0.65) 100%);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
-      .industry-copy {
+      .industry-card::after {
+        content: "";
         position: absolute;
-        left: 0.1167rem;
-        right: 0.1167rem;
-        bottom: 0.1167rem;
+        inset: auto 0 0;
+        height: 42%;
+        background: linear-gradient(180deg, rgba(8, 25, 54, 0) 0%, rgba(8, 25, 54, 0.48) 62%, rgba(8, 25, 54, 0.72) 100%);
+        pointer-events: none;
+      }
+      .industry-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
         z-index: 2;
+        width: 0.4167rem;
+        height: 0.4167rem;
+        transform: translate(-50%, calc(-50% - 0.1667rem));
+        filter: drop-shadow(0 0.05rem 0.1rem rgba(24, 104, 236, 0.22));
+      }
+      .industry-label {
+        position: absolute;
+        left: 0.1rem;
+        right: 0.1rem;
+        top: 50%;
+        z-index: 2;
+        margin-top: 0.1167rem;
         text-align: center;
         color: #ffffff;
+        font-size: 0.1417rem;
+        line-height: 0.2rem;
+        font-weight: 400;
+        text-shadow: 0 0.0167rem 0.05rem rgba(7, 21, 46, 0.22);
       }
-      .industry-copy h3 { margin: 0; font-size: 0.15rem; line-height: 0.2333rem; }
-      .industry-copy p { margin: 0.05rem 0 0; font-size: 0.1rem; line-height: 0.15rem; color: rgba(255, 255, 255, 0.82); }
-      .tone-retail { background: linear-gradient(135deg, #dbe0e6 0%, #7a8798 48%, #49596d 100%); }
-      .tone-home { background: linear-gradient(135deg, #d3ecff 0%, #6aaeff 42%, #305db8 100%); }
-      .tone-auto { background: linear-gradient(135deg, #d9eef7 0%, #7da2b9 42%, #344c61 100%); }
-      .tone-manufacture { background: linear-gradient(135deg, #c8ddef 0%, #759ab9 42%, #3e5873 100%); }
-      .tone-global { background: linear-gradient(135deg, #d8effb 0%, #69b7ee 42%, #2e74c2 100%); }
 
       .partners-section {
         padding-top: 0.6167rem;
@@ -794,7 +975,7 @@
       }
       .partner-shot-wrap {
         position: relative;
-        width: var(--canvas-width);
+        width: 11.3rem;
         aspect-ratio: 1400 / 692;
         margin: 0.2167rem auto 0;
         overflow: hidden;
@@ -812,131 +993,214 @@
       .knowledge-section { padding-top: 0.6167rem; }
       .knowledge-panel {
         display: grid;
-        grid-template-columns: 3.5rem 1fr;
-        gap: 0.1667rem;
-        width: var(--canvas-width);
+        grid-template-columns: 5.725rem 5.725rem;
+        gap: 0.25rem;
+        width: max-content;
         margin: 0.3167rem auto 0;
-        padding: 0.1667rem;
-        border-radius: 0.1333rem;
-        background: #ffffff;
-        box-shadow: var(--panel-shadow);
+        align-items: start;
       }
       .knowledge-visual {
         position: relative;
-        min-height: 2.0833rem;
-        border-radius: 0.1rem;
+        width: 5.725rem;
+        height: 3.325rem;
+        border-radius: 0.0667rem;
         overflow: hidden;
-        background: linear-gradient(135deg, #deefff 0%, #b8d7ff 45%, #eef7ff 100%);
+        flex: none;
       }
-      .visual-card {
-        position: absolute;
-        left: 0.2833rem;
-        right: 1.25rem;
-        top: 0.45rem;
-        bottom: 0.3rem;
-        border-radius: 0.1167rem;
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(224, 239, 255, 0.95));
-        box-shadow: 0 0.1333rem 0.2333rem rgba(79, 137, 214, 0.18);
+      .knowledge-visual img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
-      .visual-orb {
-        position: absolute;
-        right: 0.7167rem;
-        top: 0.5167rem;
-        width: 0.8833rem;
-        height: 0.8833rem;
-        border-radius: 50%;
-        background: radial-gradient(circle at 34% 34%, #ffffff 0%, #79c3ff 44%, #1e66e0 100%);
+      .knowledge-accordion {
+        display: flex;
+        flex-direction: column;
+        width: 5.725rem;
+        min-height: 3.325rem;
+        box-sizing: border-box;
+        background: #ffffff;
+        border: 0.0083rem solid rgba(0, 0, 0, 0.05);
+        box-shadow:
+          0.0167rem 0.0167rem 0.0333rem rgba(0, 0, 0, 0.03),
+          -0.0167rem -0.0167rem 0.0333rem rgba(0, 0, 0, 0.03);
+        border-radius: 0.1667rem;
+        overflow: hidden;
       }
-      .visual-ring {
-        position: absolute;
-        right: 0.3667rem;
-        bottom: 0.2333rem;
-        width: 1.25rem;
-        height: 1.25rem;
-        border: 0.1rem solid rgba(255, 255, 255, 0.58);
-        border-radius: 50%;
+      .knowledge-item {
+        border: none;
+        background: #ffffff;
+        transition: background-color 0.24s ease;
       }
-      .knowledge-copy { padding: 0.0833rem 0.1167rem; }
-      .knowledge-tag {
-        display: inline-flex;
-        align-items: center;
-        height: 0.2333rem;
-        padding: 0 0.1rem;
-        border-radius: 8.325rem;
-        background: #eef4ff;
-        font-size: 0.1rem;
-        color: #1b67eb;
+      .knowledge-item:first-child {
+        border-top: none;
       }
-      .knowledge-copy h3 { margin: 0.1333rem 0 0; font-size: 0.25rem; line-height: 0.35rem; }
-      .knowledge-copy p { margin: 0.1167rem 0 0; font-size: 0.1167rem; line-height: 0.2333rem; color: var(--body-color); }
-      .knowledge-copy ul { margin: 0.15rem 0 0; padding: 0; list-style: none; }
-      .knowledge-copy li {
+      .knowledge-item.is-active {
+        background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+      }
+      .knowledge-item-header {
         position: relative;
-        padding-left: 0.15rem;
-        font-size: 0.1167rem;
-        line-height: 0.2667rem;
-        color: #30476e;
+        display: flex;
+        align-items: center;
+        min-height: 0.4833rem;
+        padding: 0.125rem 0.25rem 0.125rem 0.25rem;
+        cursor: pointer;
       }
-      .knowledge-copy li::before {
+      .knowledge-item-header::before {
+        content: "";
+        position: absolute;
+        left: 0.25rem;
+        top: 50%;
+        width: 0.0583rem;
+        height: 0.0583rem;
+        border: 0.030rem solid #1b67eb;
+        border-radius: 50%;
+        background: #ffffff;
+        transform: translateY(-50%);
+      }
+      .knowledge-item-title {
+        margin: 0;
+        padding-left: 0.15rem;
+        font-size: 0.15rem;
+        line-height: 0.2333rem;
+        font-weight: 400;
+        color: #253b63;
+      }
+      .knowledge-item-body {
+        display: none;
+        padding: 0 0.25rem 0.1333rem 0.4rem;
+      }
+      .knowledge-item.is-active .knowledge-item-body {
+        display: block;
+      }
+      .knowledge-item-body p {
+        margin: 0;
+        font-size: 0.1rem;
+        line-height: 0.1833rem;
+        color: #6d7f9d;
+      }
+      .knowledge-item-points {
+        margin: 0.075rem 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .knowledge-item-points li {
+        position: relative;
+        margin: 0;
+        padding-left: 0.1083rem;
+        font-size: 0.1rem;
+        line-height: 0.1833rem;
+        color: #6d7f9d;
+      }
+      .knowledge-item-points li::before {
         content: "";
         position: absolute;
         left: 0;
-        top: 0.1rem;
-        width: 0.0583rem;
-        height: 0.0583rem;
+        top: 0.075rem;
+        width: 0.0333rem;
+        height: 0.0333rem;
         border-radius: 50%;
-        background: #1b69eb;
+        background: #1b67eb;
       }
 
       .footer-section {
         margin-top: 0.6833rem;
-        padding-top: 0.2333rem;
-        background: #0b152c;
+        background: #131b2b;
       }
       .footer-inner {
         display: grid;
-        grid-template-columns: 1.9167rem 1fr 1fr 1fr 1.8333rem;
-        gap: 0.3rem;
-        width: var(--canvas-width);
+        grid-template-columns: 2.1rem 1.25rem 2rem 2.55rem 4rem;
+        gap: 0.4rem;
+        width: max-content;
         margin: 0 auto;
-        padding-bottom: 0.2333rem;
+        padding: 0.4083rem 0 0.2833rem;
       }
-      .footer-brand { margin-bottom: 0.1167rem; }
-      .footer-brand-block p,
-      .footer-group a,
-      .footer-contact p {
-        margin: 0;
-        color: rgba(220, 228, 246, 0.68);
-        font-size: 0.1rem;
-        line-height: 0.2rem;
+      .footer-brand-block {
+        display: flex;
+        align-items: center;
+        min-height: 1.55rem;
+      }
+      .footer-brand-logo {
+        width: 1.5583rem;
+        height: 0.5083rem;
+        object-fit: contain;
+      }
+      .footer-group,
+      .footer-contact {
+        color: #8f98a8;
       }
       .footer-group h4,
-      .footer-contact h4 { margin: 0 0 0.0833rem; color: #ffffff; font-size: 0.1rem; line-height: 0.1667rem; }
-      .footer-group a { display: block; }
+      .footer-contact h4 {
+        margin: 0 0 0.175rem;
+        color: #ffffff;
+        font-size: 0.1167rem;
+        line-height: 0.175rem;
+        font-weight: 600;
+      }
+      .footer-group a,
+      .footer-contact p {
+        display: block;
+        margin: 0;
+        color: #8f98a8;
+        font-size: 0.1167rem;
+        line-height: 0.2rem;
+        font-weight: 400;
+        letter-spacing: 0;
+        white-space: nowrap;
+      }
+      .footer-group a + a {
+        margin-top: 0.1417rem;
+      }
+      .footer-contact {
+        display: grid;
+        grid-template-columns: 1.5rem 1fr;
+        grid-template-rows: auto auto auto;
+        column-gap: 0.15rem;
+        row-gap: 0.1rem;
+        align-items: start;
+      }
+      .footer-contact h4 {
+        grid-column: 1 / span 2;
+        margin-bottom: 0.0667rem;
+        font-size: 0.1333rem;
+        line-height: 0.2rem;
+      }
       .qr-box {
-        width: 0.7833rem;
-        height: 0.7833rem;
-        padding: 0.0667rem;
-        margin: 0.0833rem 0 0.0667rem;
-        border-radius: 0.0667rem;
+        grid-column: 1;
+        grid-row: 2 / span 2;
+        width: 1.5rem;
+        height: 1.5rem;
+        padding: 0;
+        border-radius: 0;
+        overflow: hidden;
         background: #ffffff;
       }
-      .qr-grid {
+      .qr-box img {
         width: 100%;
         height: 100%;
-        background:
-          linear-gradient(90deg, #111 10%, transparent 10%) 0 0 / 0.15rem 0.15rem,
-          linear-gradient(#111 10%, transparent 10%) 0 0 / 0.15rem 0.15rem,
-          linear-gradient(90deg, transparent 50%, #111 50%) 0 0 / 0.0833rem 0.0833rem,
-          linear-gradient(transparent 50%, #111 50%) 0 0 / 0.0833rem 0.0833rem;
+        object-fit: cover;
+      }
+      .footer-contact-meta {
+        grid-column: 2;
+        grid-row: 2;
+        padding-top: 0.2667rem;
+      }
+      .footer-contact-meta p + p {
+        margin-top: 0.1417rem;
+      }
+      .footer-contact-hours {
+        grid-column: 1 / span 2;
+        grid-row: 3;
+        padding-top: 0.0583rem;
       }
       .footer-meta {
-        padding: 0.1rem 0 0.1333rem;
+        width: 100%;
+        padding: 0.2167rem 0 0.3167rem;
         border-top: 0.0083rem solid rgba(255, 255, 255, 0.08);
         text-align: center;
-        color: rgba(220, 228, 246, 0.45);
-        font-size: 0.0917rem;
-        line-height: 0.15rem;
+        color: #767d8b;
+        font-size: 0.1167rem;
+        line-height: 0.175rem;
+        letter-spacing: 0.002rem;
       }
           .hero-nav:hover,
       .hero-nav:hover .site-nav,
@@ -971,6 +1235,10 @@
       }</style>
   </head>
   <body>
+    <div class="side-floating-icons" aria-label="快捷入口">
+      <img src="./public/figma-assets/phone.png" alt="电话图标" />
+      <img src="./public/figma-assets/info.png" alt="信息图标" />
+    </div>
     <div class="page-shell">
       <div class="page-canvas">
         <section class="hero-section">
@@ -1001,47 +1269,88 @@
                     <div class="nav-dropdown-surface">
                       <div class="nav-product-grid">
                         <section class="nav-product-group">
-                          <h4 class="nav-product-group-title">产业电商云</h4>
+                          <h4 class="nav-product-group-title"><img src="./public/figma-assets/p1.png" alt="" />产业电商云</h4>
                           <ul class="nav-product-list">
-                            <li><a class="nav-product-link is-selected" href="#">S2B供应链平台</a></li>
-                            <li><a class="nav-product-link" href="#">BBC多商户平台</a></li>
-                            <li><a class="nav-product-link" href="#">积分福利商城</a></li>
-                            <li><a class="nav-product-link" href="#">B2B分销订货</a></li>
-                            <li><a class="nav-product-link" href="#">B2C零售商城</a></li>
-                            <li><a class="nav-product-link" href="#">营销服务平台(SaaS)</a></li>
+                            <li><a class="nav-product-link is-selected" href="https://www.qianjiangcloud.com/views/solution/s2b.html" target="_blank" rel="noreferrer"><span class="nav-link-text">S2B供应链平台</span></a></li>
+                            <li><a class="nav-product-link" href="https://www.qianjiangcloud.com/views/solution/bbc.html" target="_blank" rel="noreferrer"><span class="nav-link-text">BBC多商户平台</span></a></li>
+                            <li><a class="nav-product-link" href="https://www.qianjiangcloud.com/views/solution/flsc.html" target="_blank" rel="noreferrer"><span class="nav-link-text">积分福利商城</span></a></li>
+                            <li><a class="nav-product-link" href="https://www.qianjiangcloud.com/views/solution/b2bfx.html" target="_blank" rel="noreferrer"><span class="nav-link-text">B2B分销订货</span></a></li>
+                            <li><a class="nav-product-link" href="https://www.qianjiangcloud.com/views/solution/b2c.html" target="_blank" rel="noreferrer"><span class="nav-link-text">B2C零售商城</span></a></li>
+                            <!-- <li><a class="nav-product-link" href="#"><span class="nav-link-text">营销服务平台(SaaS)</span></a></li> -->
                           </ul>
                         </section>
                         <section class="nav-product-group">
-                          <h4 class="nav-product-group-title">供应链协同云</h4>
+                          <h4 class="nav-product-group-title"><img src="./public/figma-assets/p2.png" alt="" />供应链协同云</h4>
                           <ul class="nav-product-list">
-                            <li><a class="nav-product-link" href="#">WMS仓储管理系统</a></li>
-                            <li><a class="nav-product-link" href="#">TMS物流管理系统</a></li>
-                            <li><a class="nav-product-link" href="#">供应链金融</a></li>
+                            <li><a class="nav-product-link" href="https://qianjiangcloud.com/views/solution/wl.html" target="_blank" rel="noreferrer"><span class="nav-link-text">WMS仓储管理系统</span></a></li>
+                            <li><a class="nav-product-link" href="https://qianjiangcloud.com/views/solution/wl.html" target="_blank" rel="noreferrer"><span class="nav-link-text">TMS物流管理系统</span></a></li>
+                            <li><a class="nav-product-link" href="https://qianjiangcloud.com/views/solution/jr.html" target="_blank" rel="noreferrer"><span class="nav-link-text">供应链金融</span></a></li>
                           </ul>
                         </section>
                         <section class="nav-product-group">
-                          <h4 class="nav-product-group-title">智能决策云</h4>
+                          <h4 class="nav-product-group-title"><img src="./public/figma-assets/p3.png" alt="" />智能决策云</h4>
                           <ul class="nav-product-list">
-                            <li><a class="nav-product-link" href="#">AI Agent</a></li>
-                            <li><a class="nav-product-link" href="#">AI BI</a></li>
+                            <li><a class="nav-product-link" href="https://qianjiangcloud.com/views/solution/qmind-ai.html" target="_blank" rel="noreferrer"><span class="nav-link-text">AI Agent</span></a></li>
+                            <li><a class="nav-product-link" href="" data-empty-link="true"><span class="nav-link-text">AIBI</span></a></li>
                           </ul>
                         </section>
                         <section class="nav-product-group">
-                          <h4 class="nav-product-group-title">中台</h4>
+                          <h4 class="nav-product-group-title"><img src="./public/figma-assets/p4.png" alt="" />中台</h4>
                           <ul class="nav-product-list">
-                            <li><a class="nav-product-link" href="#">技术中台</a></li>
-                            <li><a class="nav-product-link" href="#">业务中台</a></li>
-                            <li><a class="nav-product-link" href="#">AI中台</a></li>
+                            <li><a class="nav-product-link" href="https://www.qianjiangcloud.com/views/solution/scloud.html" target="_blank" rel="noreferrer"><span class="nav-link-text">技术中台</span></a></li>
+                            <li><a class="nav-product-link" href="https://www.qianjiangcloud.com/views/solution/bc.html" target="_blank" rel="noreferrer"><span class="nav-link-text">业务中台</span></a></li>
+                            <li><a class="nav-product-link" href="" data-empty-link="true"><span class="nav-link-text">AI中台</span></a></li>
                           </ul>
                         </section>
                       </div>
                     </div>
                   </div>
                 </div>
-                <a class="site-nav-item" href="#" data-nav-key="solution">解决方案</a>
-                <a class="site-nav-item" href="#" data-nav-key="qianjiang-ai">千匠问天</a>
+                                <div class="nav-dropdown" id="solutionDropdown" data-nav-key="solution">
+                  <div class="nav-trigger" id="solutionDropdownTrigger" role="button" tabindex="0" aria-expanded="false" aria-controls="solutionDropdownPanel">
+                    <span>解决方案</span>
+                    <img src="./public/figma-assets/nav-arrow.svg" alt="" />
+                  </div>
+                  <div class="nav-dropdown-panel" id="solutionDropdownPanel">
+                    <div class="nav-dropdown-surface">
+                      <ul class="nav-solution-list">
+                        <li><a class="nav-solution-link is-selected" href="#"><span class="nav-link-text">大宗商品交易平台解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">农特产业链平台解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">食材采销供应链平台解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">产地仓储物流园区解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">垂直产业电商与供应链平台解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">资产运营型企业生态供应链平台解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">会员运营型企业积分商城解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">集团企业员工福利解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">品牌出海交易系统解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">F2B2b2C 多级分销解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">全渠道业务中台解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">全渠道订单 OMS 解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">数字化园区解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">MRO 工业品电商解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">仓配一体化解决方案</span></a></li>
+                        <li><a class="nav-solution-link" href="#"><span class="nav-link-text">O2O</span></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <a class="site-nav-item" href="http://ai.qianjiangwentian.com/" target="_blank" rel="noreferrer" data-nav-key="qianjiang-ai">千匠问天</a>
                 <a class="site-nav-item" href="#" data-nav-key="manus">星云AIManus智能平台</a>
-                <a class="site-nav-item" href="#" data-nav-key="about">关于千匠</a>
+                <div class="nav-dropdown" id="aboutDropdown" data-nav-key="about">
+                  <div class="nav-trigger" id="aboutDropdownTrigger" role="button" tabindex="0" aria-expanded="false" aria-controls="aboutDropdownPanel">
+                    <span>关于千匠</span>
+                    <img src="./public/figma-assets/nav-arrow.svg" alt="" />
+                  </div>
+                  <div class="nav-dropdown-panel nav-dropdown-panel-compact" id="aboutDropdownPanel">
+                    <div class="nav-dropdown-surface">
+                      <ul class="nav-about-list">
+                        <li><a class="nav-about-link is-selected" href="https://qianjiangcloud.com/views/solution/about.html" target="_blank" rel="noreferrer"><span class="nav-link-text">千匠介绍</span></a></li>
+                        <li><a class="nav-about-link" href="" data-empty-link="true"><span class="nav-link-text">干匠优势</span></a></li>
+                        <li><a class="nav-about-link" href="https://qianjiangcloud.com/views/post/list_case.html" target="_blank" rel="noreferrer"><span class="nav-link-text">客户案例</span></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
                 <a class="site-nav-item" href="tel:4009903366" data-nav-key="phone">400-990-3366</a>
               </nav>
             </div>
@@ -1111,7 +1420,7 @@
                 />
                 <div class="platform-copy">
                   <h3>全渠道营销中台（千匠星云PaaS平台）</h3>
-                  <p>PaaS AI智能中台 领域模型和服务 数据存储与处理 API开放与治理</p>
+                  <p>PaaS AI智能中台  领域模型和服务  数据存储与处理  API开放与治理</p>
                 </div>
               </div>
             </div>
@@ -1150,6 +1459,7 @@
                 <div class="empower-stage-visual" id="empowerStageVisual">
                   <img id="empowerStageImage" src="./public/figma-assets/funengtixi.png" alt="全渠道交易赋能体系" />
                 </div>
+                <div class="empower-stage-note is-hidden" id="empowerStageNote"></div>
                 <div class="empower-board">
                   <div class="empower-board-top">
                     <div class="empower-board-tabs" id="empowerTopTabs"></div>
@@ -1165,49 +1475,39 @@
           <section class="section industry-section">
             <div class="section-title-wrap medium">
               <h2>行业深度实践</h2>
-              <p>我们深入理解不同产业的商业逻辑与运营挑战，以可配置、可扩展的数字化产品矩阵，助力企业实现业务模式创新与可持续增长。</p>
+              <p>以客户成功为导向，通过持续的技术迭代与专业服务，助力客户在电商转型、<br />供应链协同、智能决策等领域取得显著成效。</p>
             </div>
 
             <div class="industry-grid">
-              <article class="industry-card tone-retail">
-                <div class="industry-badge"></div>
-                <div class="industry-mask"></div>
-                <div class="industry-copy">
-                  <h3>零售行业</h3>
-                  <p>重构全渠道会员与交易链路</p>
-                </div>
+              <article class="industry-card">
+                <img class="industry-card-bg" src="./public/figma-assets/hang1.png" alt="行业深度实践场景 1" />
+                <img class="industry-icon" src="./public/figma-assets/hangicon1.png" alt="" />
+                <div class="industry-label">零售行业</div>
               </article>
-              <article class="industry-card tone-home">
-                <div class="industry-badge"></div>
-                <div class="industry-mask"></div>
-                <div class="industry-copy">
-                  <h3>家电行业</h3>
-                  <p>打通采销协同与服务履约</p>
-                </div>
+              <article class="industry-card">
+                <img class="industry-card-bg" src="./public/figma-assets/hang2.png" alt="行业深度实践场景 2" />
+                <img class="industry-icon" src="./public/figma-assets/hangicon2.png" alt="" />
+                <div class="industry-label">家电行业</div>
               </article>
-              <article class="industry-card tone-auto">
-                <div class="industry-badge"></div>
-                <div class="industry-mask"></div>
-                <div class="industry-copy">
-                  <h3>汽车行业</h3>
-                  <p>沉淀经销、备件与服务体系</p>
-                </div>
+              <article class="industry-card">
+                <img class="industry-card-bg" src="./public/figma-assets/hang3.png" alt="行业深度实践场景 3" />
+                <img class="industry-icon" src="./public/figma-assets/hangicon3.png" alt="" />
+                <div class="industry-label">汽车行业</div>
               </article>
-              <article class="industry-card tone-manufacture">
-                <div class="industry-badge"></div>
-                <div class="industry-mask"></div>
-                <div class="industry-copy">
-                  <h3>制造行业</h3>
-                  <p>连接渠道、仓配与供应网络</p>
-                </div>
+              <article class="industry-card">
+                <img class="industry-card-bg" src="./public/figma-assets/hang4.png" alt="行业深度实践场景 4" />
+                <img class="industry-icon" src="./public/figma-assets/hangicon4.png" alt="" />
+                <div class="industry-label">制造行业</div>
               </article>
-              <article class="industry-card tone-global">
-                <div class="industry-badge"></div>
-                <div class="industry-mask"></div>
-                <div class="industry-copy">
-                  <h3>品牌出海</h3>
-                  <p>支撑跨境分销与本地化运营</p>
-                </div>
+              <article class="industry-card">
+                <img class="industry-card-bg" src="./public/figma-assets/hang5.png" alt="行业深度实践场景 5" />
+                <img class="industry-icon" src="./public/figma-assets/hangicon5.png" alt="" />
+                <div class="industry-label">医疗行业</div>
+              </article>
+              <article class="industry-card">
+                <img class="industry-card-bg" src="./public/figma-assets/hang6.png" alt="行业深度实践场景 6" />
+                <img class="industry-icon" src="./public/figma-assets/hangicon6.png" alt="" />
+                <div class="industry-label">品牌出海</div>
               </article>
             </div>
           </section>
@@ -1215,7 +1515,7 @@
           <section class="section partners-section">
             <div class="section-title-wrap medium">
               <h2>合作客户</h2>
-              <p>以客户成功为导向，通过持续的技术迭代与专业服务，助力客户在电商转型、供应链协同、智能决策等领域取得显著成效。</p>
+              <p>以客户成功为导向，通过持续的技术迭代与专业服务，助力客户在电商转型、<br />供应链协同、智能决策等领域取得显著成效。</p>
             </div>
             <div class="partner-shot-wrap">
               <img
@@ -1234,67 +1534,95 @@
 
             <div class="knowledge-panel">
               <div class="knowledge-visual">
-                <div class="visual-card"></div>
-                <div class="visual-orb"></div>
-                <div class="visual-ring"></div>
+                <img src="./public/figma-assets/knownlage.png" alt="知识百科主视觉" />
               </div>
-              <div class="knowledge-copy">
-                <div class="knowledge-tag">AI 行业研究</div>
-                <h3>以实践沉淀方法，用内容放大价值</h3>
-                <p>从产业运营、渠道协同、供应链优化到智能决策，我们持续输出面向产业客户的知识体系，帮助企业更快理解数字化升级路径。</p>
-                <ul>
-                  <li>产业电商平台建设的四个关键路径</li>
-                  <li>从供给协同到履约协同的流程升级</li>
-                  <li>AI 如何进入营销、定价与预测环节</li>
-                  <li>企业建设产业互联网平台的组织方法</li>
-                  <li>跨境出海业务的交易与供应链模型</li>
-                </ul>
+              <div class="knowledge-accordion" id="knowledgeAccordion">
+                <article class="knowledge-item is-active" data-knowledge-key="b2b">
+                  <div class="knowledge-item-header">
+                    <h3 class="knowledge-item-title">B2B平台</h3>
+                  </div>
+                  <div class="knowledge-item-body">
+                    <p>B2b平台、渠道分销系统、B2b商城系统、经销商订货系统、批发订货系统、渠道数字化、F2b2b2c、Dms系统、跨境出口B2b</p>
+                  </div>
+                </article>
+                <article class="knowledge-item" data-knowledge-key="s2b">
+                  <div class="knowledge-item-header">
+                    <h3 class="knowledge-item-title">S2b供应链平台</h3>
+                  </div>
+                  <div class="knowledge-item-body">
+                    <p>产业供应链平台、产业电商、垂直产业供应链平台、S2b、S2b2c、S2b2b、供应链商城、供应链电商系统、县域供应链平台、农贸供应链平台、家居建材供应链平台</p>
+                  </div>
+                </article>
+                <article class="knowledge-item" data-knowledge-key="b2b2c">
+                  <div class="knowledge-item-header">
+                    <h3 class="knowledge-item-title">B2b2c多商户</h3>
+                  </div>
+                  <div class="knowledge-item-body">
+                    <p>多用户商城系统、多商家商城系统、联营加自营平台、B2b2c平台、多用户商城系统、多租户商城系统、B2b2c多商户商城、B2b2c电商</p>
+                  </div>
+                </article>
+                <article class="knowledge-item" data-knowledge-key="bulk">
+                  <div class="knowledge-item-header">
+                    <h3 class="knowledge-item-title">大宗交易平台</h3>
+                  </div>
+                  <div class="knowledge-item-body">
+                    <p>钢铁大宗交易平台系统、能源大宗交易平台系统、大宗电商系统、大宗商品平台、农贸大宗交易平台系统、竞价、长协、撮合交易、挂牌、有色金属交易平台系统</p>
+                  </div>
+                </article>
+                <article class="knowledge-item" data-knowledge-key="benefits">
+                  <div class="knowledge-item-header">
+                    <h3 class="knowledge-item-title">积分福利</h3>
+                  </div>
+                  <div class="knowledge-item-body">
+                    <p>员工福利商城、企业内购福利商城、平台型福利商城、积分商城、积分福利商城、会员福利商城、福利平台、弹性福利平台、福利平台解决方案、多租户福利平台</p>
+                  </div>
+                </article>
               </div>
             </div>
           </section>
         </main>
-
         <footer class="footer-section">
           <div class="footer-inner">
             <div class="footer-brand-block">
-              <div class="brand footer-brand">
-                <span class="brand-logo"><img src='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><path fill="%232b78ff" d="M6 5h30a3 3 0 0 1 3 3v25a3 3 0 0 1-3 3H17.6L8.3 44A1.7 1.7 0 0 1 6 42.7V8a3 3 0 0 1 3-3Z"/><path fill="%23fff" d="M14 13h18v5H20v3h9a3 3 0 0 1 3 3v9H15v-5h12v-3h-8a5 5 0 0 1-5-5v-7Z"/><path fill="%232b78ff" d="M19 15.5h10v1.6H19zm0 11h10v1.6H19z"/></svg>' alt="千匠网络 logo" /></span>
-              </div>
-              <p>AI驱动的产业电商与供应链解决方案服务商</p>
+              <img class="footer-brand-logo" src="./public/figma-assets/logo3.png" alt="千匠网络 logo" />
             </div>
 
             <div class="footer-group">
               <h4>关于千匠</h4>
-              <a href="#">平台介绍</a>
-              <a href="#">行业方案</a>
-              <a href="#">成功案例</a>
-              <a href="#">联系我们</a>
+              <a href="https://qianjiangcloud.com/views/solution/about.html" target="_blank" rel="noreferrer">千匠介绍</a>
+              <a href="" data-empty-link="true">千匠优势</a>
+              <a href="https://qianjiangcloud.com/views/post/list_case.html" target="_blank" rel="noreferrer">客户案例</a>
             </div>
 
             <div class="footer-group">
               <h4>热门产品</h4>
-              <a href="#">产业电商云</a>
-              <a href="#">供应链协同云</a>
-              <a href="#">智能决策云</a>
-              <a href="#">星云PaaS平台</a>
+              <a href="https://www.qianjiangcloud.com/views/solution/s2b.html" target="_blank" rel="noreferrer">S2b商城/供应链平台</a>
+              <a href="https://www.qianjiangcloud.com/views/solution/b2bfx.html" target="_blank" rel="noreferrer">B2b商城/渠道分销系统</a>
+              <a href="https://www.qianjiangcloud.com/views/solution/bbc.html" target="_blank" rel="noreferrer">B2b2c多用户商城</a>
+              <a href="https://www.qianjiangcloud.com/views/solution/flsc.html" target="_blank" rel="noreferrer">积分福利商城</a>
+              <a href="https://www.qianjiangcloud.com/views/solution/flsc.html" target="_blank" rel="noreferrer">积分福利商城</a>
             </div>
 
             <div class="footer-group">
-              <h4>热门行业解决方案</h4>
-              <a href="#">家电行业解决方案</a>
-              <a href="#">汽车行业解决方案</a>
-              <a href="#">制造行业解决方案</a>
-              <a href="#">品牌出海解决方案</a>
+              <h4>热门解决方案</h4>
+              <a href="" data-empty-link="true">大宗交易平台解决方案</a>
+              <a href="" data-empty-link="true">产业电商供应链平台解决方案</a>
+              <a href="" data-empty-link="true">跨境出口B2B平台解决方案</a>
+              <a href="" data-empty-link="true">食材采销供应链平台解决方案</a>
+              <a href="" data-empty-link="true">数字化园区解决方案</a>
             </div>
 
             <div class="footer-contact">
-              <h4>销售电话: 400-990-3366</h4>
-              <div class="qr-box"><div class="qr-grid"></div></div>
-              <p>上海市 · 徐汇区</p>
-              <p>工作日 9:00-18:00</p>
+              <h4>联系电话：400-990-3366</h4>
+              <div class="qr-box"><img src="./public/figma-assets/qcode.png" alt="千匠网络二维码" /></div>
+              <div class="footer-contact-meta">
+                <p>总部：上海</p>
+                <p>办事机构：北京、广东、山东、福建、湖北</p>
+              </div>
+              <p class="footer-contact-hours">工作日09:00-18:00</p>
             </div>
           </div>
-          <div class="footer-meta">© 2025 上海千匠网络科技有限公司 版权所有 沪ICP备15010931号</div>
+          <div class="footer-meta">© 2025 跨境电商产业智能服务平台. All rights reserved.</div>
         </footer>
       </div>
     </div>
@@ -1303,9 +1631,9 @@
         var empowerData = {
           trade: {
             title: "全渠道交易赋能",
-            desc: "千匠产业链平台以产业数字化为核心引擎，连接线下商业场景与线上交易生态，通过“端 + 云”一体化体系，实现人、货、场、链的全面联通。平台覆盖采购、供应、仓配、结算、金融等全链路业务，构建产业级交易与协同网络。",
+            desc: "千匠产业链平台以产业数字化为核心引擎，连接线下商业场景与线上交易生态，通过“端 + 云”一体化体系，实现人、货、场、链的全面联通。平台覆盖采购、供应、仓配、结算、金融等全链路业务，构建产业级交易与协同网络，为产业集群提供一站式整合与全场景赋能能力，助力企业实现全渠道、全生态的商业增长。",
             icon: "./public/figma-assets/tab-1.svg",
-            stageImage: "./public/figma-assets/funengtixi.png",
+            stageImage: "./public/figma-assets/funeng1.png",
             stageImageAlt: "全渠道交易赋能体系",
             topTabs: ["订货平台", "零售商城", "渠道分销", "会员运营", "营销中台", "结算中心"],
             boardTag: "交易中枢",
@@ -1323,8 +1651,11 @@
           },
           ai: {
             title: "AI智能赋能",
-            desc: "围绕营销、运营、服务与决策等核心场景，千匠将 AI 能力深入业务流程，帮助企业实现智能分析、智能推荐、智能客服与智能经营优化。",
+            desc: "AI深度融入产业供应链，构建可感知、可预测、可决策、可优化的智能化体系，助力企业实现供应链提效与生态协同。",
+            stageNote: "AI 作为核心引擎,通过数据、算法、模型形成“预测 → 优化 → 执行 → 反馈”的闭环,实现供应链的自学习与持续优化。",
             icon: "./public/figma-assets/tab-2.svg",
+            stageImage: "./public/figma-assets/funeng2.png",
+            stageImageAlt: "AI智能赋能体系",
             topTabs: ["智能客服", "推荐引擎", "经营分析", "营销洞察", "预测模型", "自动化流程"],
             boardTag: "AI引擎",
             cards: [
@@ -1341,8 +1672,10 @@
           },
           global: {
             title: "产业链跨境出海赋能",
-            desc: "通过跨境交易、国际履约、本地化运营与全球渠道协同能力，帮助产业客户拓展海外市场，构建稳定可持续的全球业务网络。",
+            desc: "跨境出海产业供应链平台，帮助国内企业供应链出海，实现业务在线化、标准化、自动化，促进业务效率提升与业务风险可控。",
             icon: "./public/figma-assets/tab-3.svg",
+            stageImage: "./public/figma-assets/funeng3.png",
+            stageImageAlt: "产业链跨境出海赋能体系",
             topTabs: ["跨境商城", "本地化运营", "国际物流", "全球支付", "多语言", "海外渠道"],
             boardTag: "全球业务",
             cards: [
@@ -1359,8 +1692,10 @@
           },
           supply: {
             title: "供应链商品赋能",
-            desc: "围绕商品组织、供给管理、采购协同与商品池建设，提升产业链的商品运营效率与供给稳定性，支撑前台多场景业务快速响应。",
+            desc: "AI深度融入产业供应链，构建可感知、可预测、可决策、可优化的智能化体系，助力企业实现供应链提效与生态协同。",
             icon: "./public/figma-assets/tab-4.svg",
+            stageImage: "./public/figma-assets/funeng4.png",
+            stageImageAlt: "供应链商品赋能体系",
             topTabs: ["商品池", "采购协同", "供给管理", "价格策略", "库存共享", "生命周期"],
             boardTag: "商品中台",
             cards: [
@@ -1377,8 +1712,10 @@
           },
           logistics: {
             title: "智慧物流与仓储赋能",
-            desc: "通过仓储管理、物流协同、路由调度与履约监控能力，帮助企业优化仓配效率，提升发货准确率与交付体验。",
+            desc: "提供智能化的仓储管理服务，实现多仓储之间的高效协同，提高效率，降低物流仓储成本。异地多仓平台统一管理、先进的仓内作业算法、支持与自动化、智能化设备深度集成。全流程的物流信息化服务，实现物流交易撮合、物流运输跟踪、车辆管理、计费结算，订单管理对接等“一站式、一体化”服务，提高物流生态的全方位流通效率、降低物流仓储成本。",
             icon: "./public/figma-assets/tab-5.svg",
+            stageImage: "./public/figma-assets/funeng5.png",
+            stageImageAlt: "智慧物流与仓储赋能体系",
             topTabs: ["WMS", "TMS", "仓配调度", "履约监控", "路由策略", "异常预警"],
             boardTag: "仓配网络",
             cards: [
@@ -1397,6 +1734,8 @@
             title: "产业链金融赋能",
             desc: "满足产业供应链平台各类支付及金融场景，支持多种支付方式、为上下游提供多样化供应链金融能力、对接金融机构提供各类金融服务，缓解各方资金压力、加速资金流转。",
             icon: "./public/figma-assets/tab-6.svg",
+            stageImage: "./public/figma-assets/funeng6.png",
+            stageImageAlt: "产业链金融赋能体系",
             topTabs: ["聚合支付", "授信支持", "保理服务", "账期管理", "金融对接", "风险控制"],
             boardTag: "金融服务",
             cards: [
@@ -1413,8 +1752,11 @@
           },
           ecosystem: {
             title: "产业链生态共建赋能",
-            desc: "通过开放平台、伙伴协同、服务接入与生态运营机制，连接产业上下游资源，形成共享共赢的生态体系与可持续增长能力。",
+            desc: "AI深度融入产业供应链，构建可感知、可预测、可决策、可优化的智能化体系，助力企业实现供应链提效与生态协同。",
+            stageNote: "AI 作为核心引擎,通过数据、算法、模型形成“预测 → 优化 → 执行 → 反馈”的闭环,实现供应链的自学习与持续优化。",
             icon: "./public/figma-assets/tab-7.svg",
+            stageImage: "./public/figma-assets/funeng7.png",
+            stageImageAlt: "产业链生态共建赋能体系",
             topTabs: ["开放接口", "伙伴接入", "服务市场", "能力复用", "生态运营", "联合创新"],
             boardTag: "生态平台",
             cards: [
@@ -1444,9 +1786,15 @@
           var board = grid ? grid.parentElement : null;
           var stageVisual = document.getElementById("empowerStageVisual");
           var stageImage = document.getElementById("empowerStageImage");
+          var stageNote = document.getElementById("empowerStageNote");
           if (title) title.textContent = data.title;
           if (titleIcon && data.icon) titleIcon.src = data.icon;
           if (desc) desc.textContent = data.desc;
+          if (stageNote) {
+            var hasStageNote = !!data.stageNote;
+            stageNote.textContent = data.stageNote || "";
+            stageNote.classList.toggle("is-hidden", !hasStageNote);
+          }
           if (tag) tag.textContent = data.boardTag;
           if (stageVisual && stageImage) {
             var hasStageImage = !!data.stageImage;
@@ -1476,22 +1824,52 @@
           }
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-          var tabs = Array.prototype.slice.call(document.querySelectorAll(".empower-tab"));
-          if (!tabs.length) return;
-          tabs.forEach(function (tab) {
-            tab.addEventListener("mouseenter", function () {
-              tabs.forEach(function (item) { item.classList.remove("active"); });
-              tab.classList.add("active");
-              renderEmpower(tab.getAttribute("data-empower-key"));
+        function initKnowledgeAccordion() {
+          var items = Array.prototype.slice.call(document.querySelectorAll(".knowledge-item"));
+          if (!items.length) return;
+
+          function setActive(item) {
+            items.forEach(function (current) {
+              current.classList.toggle("is-active", current === item);
             });
-            tab.addEventListener("click", function () {
-              tabs.forEach(function (item) { item.classList.remove("active"); });
-              tab.classList.add("active");
-              renderEmpower(tab.getAttribute("data-empower-key"));
+          }
+
+          items.forEach(function (item) {
+            var header = item.querySelector(".knowledge-item-header");
+            if (!header) return;
+            header.addEventListener("mouseenter", function () {
+              setActive(item);
+            });
+            header.addEventListener("focusin", function () {
+              setActive(item);
+            });
+            header.addEventListener("click", function () {
+              setActive(item);
             });
           });
-          renderEmpower("trade");
+
+          setActive(items[0]);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          var tabs = Array.prototype.slice.call(document.querySelectorAll(".empower-tab"));
+          if (tabs.length) {
+            tabs.forEach(function (tab) {
+              tab.addEventListener("mouseenter", function () {
+                tabs.forEach(function (item) { item.classList.remove("active"); });
+                tab.classList.add("active");
+                renderEmpower(tab.getAttribute("data-empower-key"));
+              });
+              tab.addEventListener("click", function () {
+                tabs.forEach(function (item) { item.classList.remove("active"); });
+                tab.classList.add("active");
+                renderEmpower(tab.getAttribute("data-empower-key"));
+              });
+            });
+            renderEmpower("trade");
+          }
+
+          initKnowledgeAccordion();
         });
 
       })();
@@ -1501,6 +1879,8 @@
         var dropdown = document.getElementById("productDropdown");
         var trigger = document.getElementById("productDropdownTrigger");
         var panel = document.getElementById("productDropdownPanel");
+        var aboutDropdown = document.getElementById("aboutDropdown");
+        var aboutTrigger = document.getElementById("aboutDropdownTrigger");
         var mask = document.getElementById("navDropdownMask");
         var surface = panel ? panel.querySelector(".nav-dropdown-surface") : null;
         var navItems = Array.prototype.slice.call(document.querySelectorAll(".site-nav-item"));
@@ -1525,6 +1905,10 @@
           if (dropdown) {
             var active = key === "product";
             dropdown.classList.toggle("active", active || dropdown.classList.contains("is-open"));
+          }
+          if (aboutDropdown) {
+            var aboutActive = key === "about";
+            aboutDropdown.classList.toggle("active", aboutActive || aboutDropdown.classList.contains("is-open"));
           }
         }
 
@@ -1564,7 +1948,9 @@
         }
 
         function syncHeaderState() {
-          var hasMenu = dropdown && dropdown.classList.contains("is-open");
+          var hasMenu =
+            (dropdown && dropdown.classList.contains("is-open")) ||
+            (aboutDropdown && aboutDropdown.classList.contains("is-open"));
           var shouldSolid = window.scrollY > 12 || hasMenu;
           header.classList.toggle("is-solid", shouldSolid);
           header.classList.toggle("is-hover", isHeaderHovered && !hasMenu);
@@ -1573,6 +1959,11 @@
         function openDropdown() {
           if (!dropdown) return;
           clearCloseTimer();
+          if (aboutDropdown) {
+            aboutDropdown.classList.remove("is-open");
+            aboutDropdown.classList.remove("active");
+          }
+          if (aboutTrigger) aboutTrigger.setAttribute("aria-expanded", "false");
           positionDropdown();
           dropdown.classList.add("is-open");
           dropdown.classList.add("active");
@@ -1717,9 +2108,500 @@
           }
         });
       })();
+
+      (function () {
+        var header = document.getElementById("siteHeader");
+        var dropdown = document.getElementById("solutionDropdown");
+        var trigger = document.getElementById("solutionDropdownTrigger");
+        var panel = document.getElementById("solutionDropdownPanel");
+        var productDropdown = document.getElementById("productDropdown");
+        var productTrigger = document.getElementById("productDropdownTrigger");
+        var aboutDropdown = document.getElementById("aboutDropdown");
+        var aboutTrigger = document.getElementById("aboutDropdownTrigger");
+        var mask = document.getElementById("navDropdownMask");
+        var surface = panel ? panel.querySelector(".nav-dropdown-surface") : null;
+        var navItems = Array.prototype.slice.call(document.querySelectorAll(".site-nav-item"));
+        var solutionLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-solution-link"));
+        var defaultActiveItem = document.querySelector(".site-nav-item.active");
+        var defaultActiveKey = defaultActiveItem ? defaultActiveItem.getAttribute("data-nav-key") : "";
+        var defaultSelectedSolution = document.querySelector(".nav-solution-link.is-selected");
+        var isHeaderHovered = false;
+        var closeTimer = null;
+        if (!header || !dropdown) return;
+
+        function clearCloseTimer() {
+          if (!closeTimer) return;
+          clearTimeout(closeTimer);
+          closeTimer = null;
+        }
+
+        function setActiveNav(key) {
+          navItems.forEach(function (item) {
+            item.classList.toggle("active", item.getAttribute("data-nav-key") === key);
+          });
+          if (productDropdown) {
+            var productActive = key === "product";
+            productDropdown.classList.toggle("active", productActive || productDropdown.classList.contains("is-open"));
+          }
+          if (aboutDropdown) {
+            var aboutActive = key === "about";
+            aboutDropdown.classList.toggle("active", aboutActive || aboutDropdown.classList.contains("is-open"));
+          }
+          dropdown.classList.toggle("active", key === "solution" || dropdown.classList.contains("is-open"));
+        }
+
+        function restoreDefaultActive() {
+          setActiveNav(defaultActiveKey);
+        }
+
+        function setSolutionHover(link) {
+          solutionLinks.forEach(function (item) {
+            item.classList.toggle("is-selected", item === link);
+          });
+        }
+
+        function restoreDefaultSolution() {
+          if (!defaultSelectedSolution) return;
+          setSolutionHover(defaultSelectedSolution);
+        }
+
+        function isWithinDropdown(target) {
+          return !!(dropdown && target && dropdown.contains(target));
+        }
+
+        function positionDropdown() {
+          if (!trigger || !panel || !surface) return;
+          var triggerRect = trigger.getBoundingClientRect();
+          var panelRect = panel.getBoundingClientRect();
+          var panelWidth = panelRect.width || panel.offsetWidth || 962;
+          var viewportWidth = window.innerWidth;
+          var margin = 24;
+          var triggerCenter = triggerRect.left + triggerRect.width / 2;
+          var panelLeft = Math.min(
+            Math.max(triggerCenter - panelWidth / 2, margin),
+            viewportWidth - panelWidth - margin
+          );
+          panel.style.left = panelLeft + "px";
+          surface.style.setProperty("--dropdown-arrow-left", triggerCenter - panelLeft + "px");
+        }
+
+        function syncHeaderState() {
+          var hasMenu =
+            (dropdown && dropdown.classList.contains("is-open")) ||
+            (productDropdown && productDropdown.classList.contains("is-open")) ||
+            (aboutDropdown && aboutDropdown.classList.contains("is-open"));
+          var shouldSolid = window.scrollY > 12 || hasMenu;
+          header.classList.toggle("is-solid", shouldSolid);
+          header.classList.toggle("is-hover", isHeaderHovered && !hasMenu);
+        }
+
+        function openDropdown() {
+          clearCloseTimer();
+          if (productDropdown) {
+            productDropdown.classList.remove("is-open");
+            productDropdown.classList.remove("active");
+          }
+          if (aboutDropdown) {
+            aboutDropdown.classList.remove("is-open");
+            aboutDropdown.classList.remove("active");
+          }
+          if (productTrigger) productTrigger.setAttribute("aria-expanded", "false");
+          if (aboutTrigger) aboutTrigger.setAttribute("aria-expanded", "false");
+          positionDropdown();
+          dropdown.classList.add("is-open");
+          dropdown.classList.add("active");
+          header.classList.add("is-menu-open");
+          if (mask) mask.classList.add("is-visible");
+          if (trigger) trigger.setAttribute("aria-expanded", "true");
+          setActiveNav("solution");
+          syncHeaderState();
+        }
+
+        function closeDropdown(immediate, keepActive) {
+          clearCloseTimer();
+          var run = function () {
+            dropdown.classList.remove("is-open");
+            dropdown.classList.remove("active");
+            header.classList.remove("is-menu-open");
+            if (mask) mask.classList.remove("is-visible");
+            if (trigger) trigger.setAttribute("aria-expanded", "false");
+            if (keepActive) {
+              setActiveNav("solution");
+            } else {
+              restoreDefaultActive();
+            }
+            restoreDefaultSolution();
+            syncHeaderState();
+          };
+
+          if (immediate) {
+            run();
+            return;
+          }
+
+          closeTimer = setTimeout(run, 80);
+        }
+
+        window.addEventListener("scroll", function () { positionDropdown(); syncHeaderState(); }, { passive: true });
+        window.addEventListener("resize", positionDropdown);
+        window.addEventListener("load", function () { positionDropdown(); syncHeaderState(); });
+        restoreDefaultSolution();
+        positionDropdown();
+        syncHeaderState();
+
+        header.addEventListener("mouseenter", function () {
+          isHeaderHovered = true;
+          clearCloseTimer();
+          syncHeaderState();
+        });
+        header.addEventListener("mouseleave", function () {
+          isHeaderHovered = false;
+          syncHeaderState();
+        });
+
+        navItems.forEach(function (item) {
+          item.addEventListener("mouseenter", function () {
+            if (dropdown.classList.contains("is-open")) {
+              closeDropdown(true);
+            }
+          });
+        });
+
+        dropdown.addEventListener("mouseenter", openDropdown);
+        dropdown.addEventListener("mouseleave", function (event) {
+          if (isWithinDropdown(event.relatedTarget)) return;
+          closeDropdown();
+        });
+
+        if (trigger) {
+          trigger.addEventListener("click", function (event) {
+            event.preventDefault();
+            if (dropdown.classList.contains("is-open")) {
+              closeDropdown(true, true);
+            } else {
+              openDropdown();
+            }
+          });
+          trigger.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              if (dropdown.classList.contains("is-open")) {
+                closeDropdown(true);
+              } else {
+                openDropdown();
+              }
+            }
+            if (event.key === "Escape") {
+              closeDropdown(true);
+            }
+          });
+        }
+
+        if (panel) {
+          panel.addEventListener("mouseenter", function () {
+            clearCloseTimer();
+          });
+          panel.addEventListener("mouseleave", function (event) {
+            if (isWithinDropdown(event.relatedTarget)) return;
+            closeDropdown();
+          });
+        }
+
+        solutionLinks.forEach(function (link) {
+          link.addEventListener("mouseenter", function () {
+            setSolutionHover(link);
+            clearCloseTimer();
+          });
+          link.addEventListener("focus", function () {
+            setSolutionHover(link);
+          });
+        });
+
+        if (mask) {
+          mask.addEventListener("click", function () {
+            closeDropdown(true);
+          });
+          mask.addEventListener("mouseenter", function () {
+            closeDropdown(true);
+          });
+        }
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") closeDropdown(true);
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!dropdown) return;
+          if (!dropdown.contains(event.target) && !header.contains(event.target)) {
+            closeDropdown(true);
+          }
+        });
+      })();
+      (function () {
+        var header = document.getElementById("siteHeader");
+        var dropdown = document.getElementById("aboutDropdown");
+        var trigger = document.getElementById("aboutDropdownTrigger");
+        var panel = document.getElementById("aboutDropdownPanel");
+        var productDropdown = document.getElementById("productDropdown");
+        var productTrigger = document.getElementById("productDropdownTrigger");
+        var mask = document.getElementById("navDropdownMask");
+        var surface = panel ? panel.querySelector(".nav-dropdown-surface") : null;
+        var navItems = Array.prototype.slice.call(document.querySelectorAll(".site-nav-item"));
+        var aboutLinks = Array.prototype.slice.call(document.querySelectorAll(".nav-about-link"));
+        var defaultActiveItem = document.querySelector(".site-nav-item.active");
+        var defaultActiveKey = defaultActiveItem ? defaultActiveItem.getAttribute("data-nav-key") : "";
+        var defaultSelectedAbout = document.querySelector(".nav-about-link.is-selected");
+        var isHeaderHovered = false;
+        var closeTimer = null;
+        if (!header || !dropdown) return;
+
+        function clearCloseTimer() {
+          if (!closeTimer) return;
+          clearTimeout(closeTimer);
+          closeTimer = null;
+        }
+
+        function setActiveNav(key) {
+          navItems.forEach(function (item) {
+            item.classList.toggle("active", item.getAttribute("data-nav-key") === key);
+          });
+          if (productDropdown) {
+            var productActive = key === "product";
+            productDropdown.classList.toggle("active", productActive || productDropdown.classList.contains("is-open"));
+          }
+          dropdown.classList.toggle("active", key === "about" || dropdown.classList.contains("is-open"));
+        }
+
+        function restoreDefaultActive() {
+          setActiveNav(defaultActiveKey);
+        }
+
+        function setAboutHover(link) {
+          aboutLinks.forEach(function (item) {
+            item.classList.toggle("is-selected", item === link);
+          });
+        }
+
+        function restoreDefaultAbout() {
+          if (!defaultSelectedAbout) return;
+          setAboutHover(defaultSelectedAbout);
+        }
+
+        function isWithinDropdown(target) {
+          return !!(dropdown && target && dropdown.contains(target));
+        }
+
+        function positionDropdown() {
+          if (!trigger || !panel || !surface) return;
+          var triggerRect = trigger.getBoundingClientRect();
+          var panelRect = panel.getBoundingClientRect();
+          var panelWidth = panelRect.width || panel.offsetWidth || 324;
+          var viewportWidth = window.innerWidth;
+          var margin = 24;
+          var triggerCenter = triggerRect.left + triggerRect.width / 2;
+          var panelLeft = Math.min(
+            Math.max(triggerCenter - panelWidth / 2, margin),
+            viewportWidth - panelWidth - margin
+          );
+          panel.style.left = panelLeft + "px";
+          surface.style.setProperty("--dropdown-arrow-left", triggerCenter - panelLeft + "px");
+        }
+
+        function syncHeaderState() {
+          var hasMenu =
+            (dropdown && dropdown.classList.contains("is-open")) ||
+            (productDropdown && productDropdown.classList.contains("is-open"));
+          var shouldSolid = window.scrollY > 12 || hasMenu;
+          header.classList.toggle("is-solid", shouldSolid);
+          header.classList.toggle("is-hover", isHeaderHovered && !hasMenu);
+        }
+
+        function openDropdown() {
+          clearCloseTimer();
+          if (productDropdown) {
+            productDropdown.classList.remove("is-open");
+            productDropdown.classList.remove("active");
+          }
+          if (productTrigger) productTrigger.setAttribute("aria-expanded", "false");
+          positionDropdown();
+          dropdown.classList.add("is-open");
+          dropdown.classList.add("active");
+          header.classList.add("is-menu-open");
+          if (mask) mask.classList.add("is-visible");
+          if (trigger) trigger.setAttribute("aria-expanded", "true");
+          setActiveNav("about");
+          syncHeaderState();
+        }
+
+        function closeDropdown(immediate, keepAboutActive) {
+          clearCloseTimer();
+          var run = function () {
+            dropdown.classList.remove("is-open");
+            dropdown.classList.remove("active");
+            if (!(productDropdown && productDropdown.classList.contains("is-open"))) {
+              header.classList.remove("is-menu-open");
+              if (mask) mask.classList.remove("is-visible");
+            }
+            if (trigger) trigger.setAttribute("aria-expanded", "false");
+            if (keepAboutActive) {
+              setActiveNav("about");
+            } else {
+              restoreDefaultActive();
+            }
+            restoreDefaultAbout();
+            syncHeaderState();
+          };
+
+          if (immediate) {
+            run();
+            return;
+          }
+
+          closeTimer = setTimeout(run, 80);
+        }
+
+        window.addEventListener(
+          "scroll",
+          function () {
+            positionDropdown();
+            syncHeaderState();
+          },
+          { passive: true }
+        );
+        window.addEventListener("resize", positionDropdown);
+        window.addEventListener("load", function () {
+          positionDropdown();
+          syncHeaderState();
+        });
+        restoreDefaultAbout();
+        positionDropdown();
+        syncHeaderState();
+
+        header.addEventListener("mouseenter", function () {
+          isHeaderHovered = true;
+          clearCloseTimer();
+          syncHeaderState();
+        });
+        header.addEventListener("mouseleave", function () {
+          isHeaderHovered = false;
+          syncHeaderState();
+        });
+
+        navItems.forEach(function (item) {
+          item.addEventListener("mouseenter", function () {
+            if (dropdown.classList.contains("is-open")) {
+              closeDropdown(true);
+            }
+          });
+        });
+
+        dropdown.addEventListener("mouseenter", openDropdown);
+        dropdown.addEventListener("mouseleave", function (event) {
+          if (isWithinDropdown(event.relatedTarget)) return;
+          closeDropdown();
+        });
+
+        if (trigger) {
+          trigger.addEventListener("click", function (event) {
+            event.preventDefault();
+            if (dropdown.classList.contains("is-open")) {
+              closeDropdown(true, true);
+            } else {
+              openDropdown();
+            }
+          });
+          trigger.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              if (dropdown.classList.contains("is-open")) {
+                closeDropdown(true);
+              } else {
+                openDropdown();
+              }
+            }
+            if (event.key === "Escape") {
+              closeDropdown(true);
+            }
+          });
+        }
+
+        if (panel) {
+          panel.addEventListener("mouseenter", function () {
+            clearCloseTimer();
+          });
+          panel.addEventListener("mouseleave", function (event) {
+            if (isWithinDropdown(event.relatedTarget)) return;
+            closeDropdown();
+          });
+        }
+
+        aboutLinks.forEach(function (link) {
+          link.addEventListener("mouseenter", function () {
+            setAboutHover(link);
+            clearCloseTimer();
+          });
+          link.addEventListener("focus", function () {
+            setAboutHover(link);
+          });
+        });
+
+        if (mask) {
+          mask.addEventListener("click", function () {
+            closeDropdown(true);
+          });
+          mask.addEventListener("mouseenter", function () {
+            closeDropdown(true);
+          });
+        }
+
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape") closeDropdown(true);
+        });
+
+        document.addEventListener("click", function (event) {
+          if (!dropdown.contains(event.target) && !header.contains(event.target)) {
+            closeDropdown(true);
+          }
+        });
+      })();
+
+      (function () {
+        var emptyLinks = Array.prototype.slice.call(document.querySelectorAll('[data-empty-link="true"]'));
+        if (!emptyLinks.length) return;
+
+        emptyLinks.forEach(function (link) {
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+            console.log("链接为空");
+          });
+        });
+      })();
     </script>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
