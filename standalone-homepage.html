@@ -26,8 +26,20 @@
     />
     <meta property="og:image" content="./public/figma-assets/hero-image.png" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      (function () {
+        var docEl = document.documentElement;
+
+        function refreshRem() {
+          var width = Math.max(1200, Math.min(window.innerWidth || docEl.clientWidth || 1920, 1920));
+          docEl.style.fontSize = width / 16 + "px";
+        }
+
+        refreshRem();
+        window.addEventListener("resize", refreshRem, { passive: true });
+      })();
+    </script>
     <style>
-      html { font-size: 120px; }
       :root {
         font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
         --title-color: #1b2d4d;
@@ -510,80 +522,150 @@
       .empower-layout {
         display: grid;
         grid-template-columns: 2.6667rem 1fr;
-        gap: 0.1667rem;
+        gap: 0.1333rem;
         width: var(--canvas-width);
         margin: 0.3333rem auto 0;
+        align-items: stretch;
       }
       .empower-sidebar,
       .empower-stage {
         background: #ffffff;
-        box-shadow: var(--panel-shadow);
+        box-shadow: 0 0.075rem 0.1833rem rgba(29, 62, 119, 0.08);
       }
       .empower-sidebar {
-        height: 5.6667rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.1667rem;
+        padding: 0;
+        height: 5.275rem;
+        background: transparent;
+        box-shadow: none;
       }
       .empower-tab {
         display: flex;
         align-items: center;
-        gap: 0.1rem;
+        gap: 0.0833rem;
         width: 100%;
         height: 0.6667rem;
-        padding: 0 0.25rem;
+        padding: 0 0.1667rem;
         border-left: 0.0667rem solid transparent;
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 0.2rem;
-        line-height: 0.3rem;
+        color: #8b8f97;
+        font-size: 0.1833rem;
+        line-height: 0.2667rem;
         background: #ffffff;
+        border: none;
         cursor: pointer;
-        transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+        text-align: left;
+        transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 0.0417rem 0.1rem rgba(23, 45, 86, 0.05);
+      }
+      .empower-tab span {
+        flex: 1;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
       }
       .empower-tab img {
-        width: 0.2rem;
-        height: 0.2rem;
+        width: 0.1833rem;
+        height: 0.1833rem;
         flex: none;
+        filter: brightness(0) saturate(100%);
       }
       .empower-tab.active {
         border-left-color: #4285fe;
         color: #277fff;
         font-weight: 500;
+        box-shadow: 0 0.075rem 0.1833rem rgba(39, 127, 255, 0.12);
+      }
+      .empower-tab.active img {
+        filter: brightness(0) saturate(100%) invert(44%) sepia(97%) saturate(2617%) hue-rotate(208deg) brightness(102%) contrast(101%);
       }
       .empower-stage {
-        height: 5.6667rem;
-        padding: 0.3rem 0.4667rem 0.3rem;
+        height: 5.275rem;
+        padding: 0.2rem 0.2167rem 0.2167rem;
+        border: 0.0083rem solid #e6eefb;
+      }
+      .empower-stage-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 0.0917rem;
+      }
+      .empower-stage-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.1333rem;
+      }
+      .empower-stage-title {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.0917rem;
+      }
+      .empower-stage-title img {
+        width: 0.1917rem;
+        height: 0.1917rem;
+        flex: none;
+        filter: brightness(0) saturate(100%) invert(44%) sepia(97%) saturate(2617%) hue-rotate(208deg) brightness(102%) contrast(101%);
       }
       .empower-stage-copy h3 {
         margin: 0;
-        font-size: 0.25rem;
-        line-height: 0.35rem;
-        color: #16315d;
+        font-size: 0.2417rem;
+        line-height: 0.3333rem;
+        color: #17191f;
+      }
+      .empower-stage-trail {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.0333rem;
+        padding-right: 0.025rem;
+      }
+      .empower-stage-trail span {
+        width: 0.05rem;
+        height: 0.075rem;
+        clip-path: polygon(0 0, 100% 50%, 0 100%);
+        background: #c9dcff;
       }
       .empower-stage-copy p {
-        margin: 0.14rem 0 0;
-        font-size: 0.15rem;
-        line-height: 0.3rem;
-        color: #4f6180;
+        margin: 0;
+        font-size: 0.1417rem;
+        line-height: 0.2583rem;
+        color: #5f6775;
+      }
+      .empower-stage-visual {
+        margin-top: 0.1083rem;
+        border-top: 0.0083rem solid #edf3fd;
+        padding-top: 0.125rem;
+      }
+      .empower-stage-visual img {
+        display: block;
+        width: 100%;
+        height: auto;
       }
       .empower-board {
-        margin-top: 0.17rem;
-        border: 0.0083rem solid #dbe8ff;
-        background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
+        margin-top: 0.1083rem;
+        border: 0.0083rem solid #e5eefb;
+        background: #f9fbff;
+      }
+      .empower-board.is-hidden,
+      .empower-stage-visual.is-hidden {
+        display: none;
       }
       .empower-board-top {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 0.0833rem;
-        padding: 0.0583rem 0.0833rem;
-        background: linear-gradient(180deg, #4a8bff 0%, #2f7cff 100%);
+        gap: 0.0583rem;
+        padding: 0.05rem 0.0667rem;
+        background: #dbe9ff;
       }
       .empower-board-tabs {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
-        gap: 0.05rem;
+        gap: 0.0417rem;
         flex: 1;
       }
       .empower-board-tab {
-        min-height: 0.25rem;
+        min-height: 0.225rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -591,31 +673,31 @@
         font-size: 0.0917rem;
         line-height: 0.1167rem;
         text-align: center;
-        color: #ffffff;
-        background: rgba(255, 255, 255, 0.16);
+        color: #3b7ef9;
+        background: #ffffff;
       }
       .empower-board-tag {
         flex: none;
         min-width: 0.66rem;
-        height: 0.25rem;
+        height: 0.225rem;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 0 0.08rem;
         font-size: 0.0917rem;
-        color: #2f7cff;
+        color: #3b7ef9;
         background: #ffffff;
       }
       .empower-board-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 0.0833rem;
-        padding: 0.0833rem;
+        gap: 0.05rem;
+        padding: 0.075rem 0.0667rem;
       }
       .empower-card {
-        min-height: 0.9rem;
-        padding: 0.1167rem 0.0833rem 0.1rem;
-        border: 0.0083rem solid #d8e6ff;
+        min-height: 0.875rem;
+        padding: 0.1083rem 0.0667rem 0.0833rem;
+        border: 0.0083rem solid #dfe9fb;
         background: #ffffff;
         text-align: center;
       }
@@ -631,30 +713,30 @@
         margin: 0;
         font-size: 0.1083rem;
         line-height: 0.15rem;
-        color: #24436f;
+        color: #42516b;
       }
       .empower-card p {
         margin: 0.05rem 0 0;
         font-size: 0.0917rem;
         line-height: 0.1333rem;
-        color: #7a8daa;
+        color: #8d99ac;
       }
       .empower-footer {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 0.05rem;
-        padding: 0 0.0833rem 0.0833rem;
+        gap: 0.0417rem;
+        padding: 0 0.0667rem 0.0667rem;
       }
       .empower-footer-item {
-        min-height: 0.2167rem;
+        min-height: 0.2083rem;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 0 0.0417rem;
         font-size: 0.0917rem;
         line-height: 0.1167rem;
-        color: #ffffff;
-        background: linear-gradient(180deg, #68a8ff 0%, #377fff 100%);
+        color: #3b7ef9;
+        background: #e8f0ff;
       }
 
       .industry-section { padding-top: 0.6333rem; }
@@ -1043,19 +1125,30 @@
 
             <div class="empower-layout">
               <aside class="empower-sidebar" id="empowerSidebar">
-                <button class="empower-tab active" type="button" data-empower-key="trade"><img src="./public/figma-assets/tab-1.svg" alt="" /><span>全渠道交易赋能</span></button>
-                <button class="empower-tab" type="button" data-empower-key="ai"><img src="./public/figma-assets/tab-2.svg" alt="" /><span>AI智能赋能</span></button>
-                <button class="empower-tab" type="button" data-empower-key="global"><img src="./public/figma-assets/tab-3.svg" alt="" /><span>产业链跨境出海赋能</span></button>
-                <button class="empower-tab" type="button" data-empower-key="supply"><img src="./public/figma-assets/tab-4.svg" alt="" /><span>供应链商品赋能</span></button>
-                <button class="empower-tab" type="button" data-empower-key="logistics"><img src="./public/figma-assets/tab-5.svg" alt="" /><span>智慧物流与仓储赋能</span></button>
-                <button class="empower-tab" type="button" data-empower-key="finance"><img src="./public/figma-assets/tab-6.svg" alt="" /><span>产业链金融赋能</span></button>
-                <button class="empower-tab" type="button" data-empower-key="ecosystem"><img src="./public/figma-assets/tab-7.svg" alt="" /><span>产业链生态共建赋能</span></button>
+                <div class="empower-tab active" data-empower-key="trade"><img src="./public/figma-assets/tab-1.svg" alt="" /><span>全渠道交易赋能</span></div>
+                <div class="empower-tab" data-empower-key="ai"><img src="./public/figma-assets/tab-2.svg" alt="" /><span>AI智能赋能</span></div>
+                <div class="empower-tab" data-empower-key="global"><img src="./public/figma-assets/tab-3.svg" alt="" /><span>产业链跨境出海赋能</span></div>
+                <div class="empower-tab" data-empower-key="supply"><img src="./public/figma-assets/tab-4.svg" alt="" /><span>供应链商品赋能</span></div>
+                <div class="empower-tab" data-empower-key="logistics"><img src="./public/figma-assets/tab-5.svg" alt="" /><span>智慧物流与仓储赋能</span></div>
+                <div class="empower-tab" data-empower-key="finance"><img src="./public/figma-assets/tab-6.svg" alt="" /><span>产业链金融赋能</span></div>
+                <div class="empower-tab" data-empower-key="ecosystem"><img src="./public/figma-assets/tab-7.svg" alt="" /><span>产业链生态共建赋能</span></div>
               </aside>
 
               <div class="empower-stage">
                 <div class="empower-stage-copy">
-                  <h3 id="empowerTitle">全渠道交易赋能</h3>
+                  <div class="empower-stage-head">
+                    <div class="empower-stage-title">
+                      <img id="empowerTitleIcon" src="./public/figma-assets/tab-1.svg" alt="" />
+                      <h3 id="empowerTitle">全渠道交易赋能</h3>
+                    </div>
+                    <div class="empower-stage-trail" aria-hidden="true">
+                      <span></span><span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                  </div>
                   <p id="empowerDesc">千匠产业链平台以产业数字化为核心引擎，连接线下商业场景与线上交易生态，通过“端 + 云”一体化体系，实现人、货、场、链的全面联通。平台覆盖采购、供应、仓配、结算、金融等全链路业务，构建产业级交易与协同网络。</p>
+                </div>
+                <div class="empower-stage-visual" id="empowerStageVisual">
+                  <img id="empowerStageImage" src="./public/figma-assets/funengtixi.png" alt="全渠道交易赋能体系" />
                 </div>
                 <div class="empower-board">
                   <div class="empower-board-top">
@@ -1211,6 +1304,9 @@
           trade: {
             title: "全渠道交易赋能",
             desc: "千匠产业链平台以产业数字化为核心引擎，连接线下商业场景与线上交易生态，通过“端 + 云”一体化体系，实现人、货、场、链的全面联通。平台覆盖采购、供应、仓配、结算、金融等全链路业务，构建产业级交易与协同网络。",
+            icon: "./public/figma-assets/tab-1.svg",
+            stageImage: "./public/figma-assets/funengtixi.png",
+            stageImageAlt: "全渠道交易赋能体系",
             topTabs: ["订货平台", "零售商城", "渠道分销", "会员运营", "营销中台", "结算中心"],
             boardTag: "交易中枢",
             cards: [
@@ -1228,6 +1324,7 @@
           ai: {
             title: "AI智能赋能",
             desc: "围绕营销、运营、服务与决策等核心场景，千匠将 AI 能力深入业务流程，帮助企业实现智能分析、智能推荐、智能客服与智能经营优化。",
+            icon: "./public/figma-assets/tab-2.svg",
             topTabs: ["智能客服", "推荐引擎", "经营分析", "营销洞察", "预测模型", "自动化流程"],
             boardTag: "AI引擎",
             cards: [
@@ -1245,6 +1342,7 @@
           global: {
             title: "产业链跨境出海赋能",
             desc: "通过跨境交易、国际履约、本地化运营与全球渠道协同能力，帮助产业客户拓展海外市场，构建稳定可持续的全球业务网络。",
+            icon: "./public/figma-assets/tab-3.svg",
             topTabs: ["跨境商城", "本地化运营", "国际物流", "全球支付", "多语言", "海外渠道"],
             boardTag: "全球业务",
             cards: [
@@ -1262,6 +1360,7 @@
           supply: {
             title: "供应链商品赋能",
             desc: "围绕商品组织、供给管理、采购协同与商品池建设，提升产业链的商品运营效率与供给稳定性，支撑前台多场景业务快速响应。",
+            icon: "./public/figma-assets/tab-4.svg",
             topTabs: ["商品池", "采购协同", "供给管理", "价格策略", "库存共享", "生命周期"],
             boardTag: "商品中台",
             cards: [
@@ -1279,6 +1378,7 @@
           logistics: {
             title: "智慧物流与仓储赋能",
             desc: "通过仓储管理、物流协同、路由调度与履约监控能力，帮助企业优化仓配效率，提升发货准确率与交付体验。",
+            icon: "./public/figma-assets/tab-5.svg",
             topTabs: ["WMS", "TMS", "仓配调度", "履约监控", "路由策略", "异常预警"],
             boardTag: "仓配网络",
             cards: [
@@ -1296,6 +1396,7 @@
           finance: {
             title: "产业链金融赋能",
             desc: "满足产业供应链平台各类支付及金融场景，支持多种支付方式、为上下游提供多样化供应链金融能力、对接金融机构提供各类金融服务，缓解各方资金压力、加速资金流转。",
+            icon: "./public/figma-assets/tab-6.svg",
             topTabs: ["聚合支付", "授信支持", "保理服务", "账期管理", "金融对接", "风险控制"],
             boardTag: "金融服务",
             cards: [
@@ -1313,6 +1414,7 @@
           ecosystem: {
             title: "产业链生态共建赋能",
             desc: "通过开放平台、伙伴协同、服务接入与生态运营机制，连接产业上下游资源，形成共享共赢的生态体系与可持续增长能力。",
+            icon: "./public/figma-assets/tab-7.svg",
             topTabs: ["开放接口", "伙伴接入", "服务市场", "能力复用", "生态运营", "联合创新"],
             boardTag: "生态平台",
             cards: [
@@ -1333,14 +1435,30 @@
           var data = empowerData[key];
           if (!data) return;
           var title = document.getElementById("empowerTitle");
+          var titleIcon = document.getElementById("empowerTitleIcon");
           var desc = document.getElementById("empowerDesc");
           var topTabs = document.getElementById("empowerTopTabs");
           var grid = document.getElementById("empowerBoardGrid");
           var footer = document.getElementById("empowerFooter");
           var tag = document.getElementById("empowerBoardTag");
+          var board = grid ? grid.parentElement : null;
+          var stageVisual = document.getElementById("empowerStageVisual");
+          var stageImage = document.getElementById("empowerStageImage");
           if (title) title.textContent = data.title;
+          if (titleIcon && data.icon) titleIcon.src = data.icon;
           if (desc) desc.textContent = data.desc;
           if (tag) tag.textContent = data.boardTag;
+          if (stageVisual && stageImage) {
+            var hasStageImage = !!data.stageImage;
+            stageVisual.classList.toggle("is-hidden", !hasStageImage);
+            if (hasStageImage) {
+              stageImage.src = data.stageImage;
+              stageImage.alt = data.stageImageAlt || data.title;
+            }
+            if (board) {
+              board.classList.toggle("is-hidden", hasStageImage);
+            }
+          }
           if (topTabs) {
             topTabs.innerHTML = data.topTabs.map(function (item) {
               return '<div class="empower-board-tab">' + item + '</div>';
@@ -1362,6 +1480,11 @@
           var tabs = Array.prototype.slice.call(document.querySelectorAll(".empower-tab"));
           if (!tabs.length) return;
           tabs.forEach(function (tab) {
+            tab.addEventListener("mouseenter", function () {
+              tabs.forEach(function (item) { item.classList.remove("active"); });
+              tab.classList.add("active");
+              renderEmpower(tab.getAttribute("data-empower-key"));
+            });
             tab.addEventListener("click", function () {
               tabs.forEach(function (item) { item.classList.remove("active"); });
               tab.classList.add("active");
