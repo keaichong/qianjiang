@@ -1987,15 +1987,10 @@
           if (!trigger || !panel || !surface) return;
           var triggerRect = trigger.getBoundingClientRect();
           var panelWidth = panel.offsetWidth || 962;
-          var viewportWidth = window.innerWidth;
-          var margin = 24;
           var triggerCenter = triggerRect.left + triggerRect.width / 2;
-          var panelLeft = Math.min(
-            Math.max(triggerCenter - panelWidth / 2, margin),
-            viewportWidth - panelWidth - margin
-          );
+          var panelLeft = triggerCenter - panelWidth / 2;
           panel.style.left = panelLeft + "px";
-          surface.style.setProperty("--dropdown-arrow-left", triggerCenter - panelLeft + "px");
+          surface.style.setProperty("--dropdown-arrow-left", "50%");
         }
 
         function syncHeaderState() {
@@ -2224,15 +2219,10 @@
           if (!trigger || !panel || !surface) return;
           var triggerRect = trigger.getBoundingClientRect();
           var panelWidth = panel.offsetWidth || 962;
-          var viewportWidth = window.innerWidth;
-          var margin = 24;
           var triggerCenter = triggerRect.left + triggerRect.width / 2;
-          var panelLeft = Math.min(
-            Math.max(triggerCenter - panelWidth / 2, margin),
-            viewportWidth - panelWidth - margin
-          );
+          var panelLeft = triggerCenter - panelWidth / 2;
           panel.style.left = panelLeft + "px";
-          surface.style.setProperty("--dropdown-arrow-left", triggerCenter - panelLeft + "px");
+          surface.style.setProperty("--dropdown-arrow-left", "50%");
         }
 
         function syncHeaderState() {
@@ -2445,15 +2435,10 @@
           if (!trigger || !panel || !surface) return;
           var triggerRect = trigger.getBoundingClientRect();
           var panelWidth = panel.offsetWidth || 324;
-          var viewportWidth = window.innerWidth;
-          var margin = 24;
           var triggerCenter = triggerRect.left + triggerRect.width / 2;
-          var panelLeft = Math.min(
-            Math.max(triggerCenter - panelWidth / 2, margin),
-            viewportWidth - panelWidth - margin
-          );
+          var panelLeft = triggerCenter - panelWidth / 2;
           panel.style.left = panelLeft + "px";
-          surface.style.setProperty("--dropdown-arrow-left", triggerCenter - panelLeft + "px");
+          surface.style.setProperty("--dropdown-arrow-left", "50%");
         }
 
         function syncHeaderState() {
@@ -2628,7 +2613,6 @@
     </script>
   </body>
 </html>
-
 
 
 
