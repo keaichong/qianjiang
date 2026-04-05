@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/",
-      "destination": "/standalone-homepage.html"
-    }
-  ]
-}
