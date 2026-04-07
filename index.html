@@ -40,6 +40,13 @@
       })();
     </script>
     <style>
+      @font-face {
+        font-family: "YouSheBiaoTiHei";
+        src: url("./public/font/YouSheBiaoTiHei.ttf") format("truetype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
       :root {
         font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
         --title-color: #1b2d4d;
@@ -74,6 +81,190 @@
         width: 80px;
         height: 80px;
         object-fit: contain;
+      }
+      .side-floating-icon-trigger {
+        display: block;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+      .side-floating-icon-trigger img {
+        pointer-events: none;
+      }
+      .phone-popover {
+        position: fixed;
+        top: calc(50% - 0.5333rem);
+        right: 1.0667rem;
+        z-index: 110;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.0833rem;
+        min-width: 2.03rem;
+        height: 0.6rem;
+        padding: 0 0.1667rem;
+        border-radius: 0.05rem;
+        background: linear-gradient(180deg, #5d95f2 0%, #4a84e7 100%);
+        box-shadow: 0 0.05rem 0.1333rem rgba(59, 109, 196, 0.24);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translate3d(0.1333rem, 0, 0);
+        transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+      }
+      .phone-popover.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translate3d(0, 0, 0);
+      }
+      .phone-popover-icon {
+        display: block;
+        width: 0.1833rem;
+        height: 0.1833rem;
+        flex: none;
+        object-fit: contain;
+      }
+      .phone-popover-text {
+        color: #ffffff;
+        font-family: "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size: 0.1667rem;
+        line-height: 1;
+        white-space: nowrap;
+      }
+
+      .info-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 120;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(13, 20, 33, 0.42);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.24s ease, visibility 0.24s ease;
+      }
+      .info-modal-backdrop.is-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      .info-modal {
+        position: relative;
+        width: 4.0167rem;
+        max-width: calc(100vw - 48px);
+        min-height: 3.8667rem;
+        border-radius: 0.0833rem;
+        background: linear-gradient(180deg, #e3edff 0%, #ffffff 24.13%);
+        box-shadow: 0 -1px 7px rgba(0, 0, 0, 0.05), 0 1px 7px rgba(0, 0, 0, 0.05);
+      }
+      .info-modal-close {
+        position: absolute;
+        top: 0.2rem;
+        right: 0.25rem;
+        z-index: 3;
+        width: 0.4rem;
+        height: 0.4rem;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        appearance: none;
+      }
+      .info-modal-close::before,
+      .info-modal-close::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0.2rem;
+        height: 0.025rem;
+        border-radius: 999px;
+        background: #000000;
+        transform-origin: center;
+      }
+      .info-modal-close::before {
+        transform: translate(-50%, -50%) rotate(45deg);
+      }
+      .info-modal-close::after {
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+      .info-modal-body {
+        min-height: 3.2rem;
+        padding: 0.25rem 0.3333rem 0.6rem;
+      }
+      .info-modal-title {
+        margin: 0;
+        opacity: 0.8;
+        font-family: "YouSheBiaoTiHei", "Source Han Sans CN", "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size: 0.2333rem;
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0.035rem;
+        color: #000000;
+      }
+      .info-modal-form {
+        width: 3.35rem;
+        margin-top: 0.2083rem;
+        display: grid;
+        gap: 0.0833rem;
+      }
+      .info-modal-field {
+        display: grid;
+        gap: 0.05rem;
+      }
+      .info-modal-label {
+        opacity: 0.6;
+        font-family: "Source Han Sans CN", "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size: 0.1167rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: #000000;
+      }
+      .info-modal-input {
+        width: 100%;
+        height: 0.2667rem;
+        padding: 0 0.0833rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 0.0417rem;
+        background: transparent;
+        font-family: "Source Han Sans CN", "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size: 0.1167rem;
+        font-weight: 400;
+        line-height: 1;
+        color: rgba(0, 0, 0, 0.85);
+        outline: none;
+      }
+      .info-modal-input::placeholder {
+        color: rgba(0, 0, 0, 0.3);
+      }
+      .info-modal-input:focus {
+        border-color: #4285fe;
+        box-shadow: 0 0 0 2px rgba(66, 133, 254, 0.12);
+      }
+      .info-modal-submit {
+        position: absolute;
+        right: 0.2667rem;
+        bottom: 0.2667rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 0.6667rem;
+        height: 0.2667rem;
+        border: 1px solid #4285fe;
+        border-radius: 0.0417rem;
+        background: #4285fe;
+        color: #ffffff;
+        font-family: "Source Han Sans CN", "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size: 0.1167rem;
+        line-height: 1;
+        cursor: pointer;
+      }
+      body.info-modal-open {
+        overflow: hidden;
       }
       .page-shell { display: flex; justify-content: center; min-width: 1200px; background: #ffffff; }
       .page-canvas { width: 100%; min-width: 1200px; }
@@ -856,7 +1047,7 @@
         min-height: 0.6667rem;
       }
       .empower-stage-visual {
-        margin-top: 0.1083rem;
+        /* margin-top: 0.1083rem; */
         border-top: 0.0083rem solid #edf3fd;
         padding-top: 0.125rem;
         width: 100%;
@@ -1051,7 +1242,7 @@
         aspect-ratio: 1400 / 692;
         margin: 0.2167rem auto 0;
         overflow: hidden;
-        background: transparent;
+        background: #fff;
       }
       .partner-shot {
         position: absolute;
@@ -1308,8 +1499,43 @@
   </head>
   <body>
     <div class="side-floating-icons" aria-label="快捷入口">
-      <img src="./public/figma-assets/phone.png" alt="电话图标" />
-      <img src="./public/figma-assets/info.png" alt="信息图标" />
+      <button class="side-floating-icon-trigger" type="button" data-open-phone-popover aria-label="显示联系电话">
+        <img src="./public/figma-assets/phone.png" alt="电话图标" />
+      </button>
+      <button class="side-floating-icon-trigger" type="button" data-open-info-modal aria-label="打开信息弹窗">
+        <img src="./public/figma-assets/info.png" alt="信息图标" />
+      </button>
+    </div>
+    <div class="phone-popover" id="phonePopover" aria-hidden="true">
+      <img class="phone-popover-icon" src="./public/figma-assets/phoneN.svg" alt="" aria-hidden="true" />
+      <span class="phone-popover-text">400-990-3366</span>
+    </div>
+    <div class="info-modal-backdrop" id="infoModalBackdrop" aria-hidden="true">
+      <div class="info-modal" role="dialog" aria-modal="true" aria-label="信息弹窗">
+        <button class="info-modal-close" type="button" data-close-info-modal aria-label="关闭弹窗"></button>
+        <div class="info-modal-body">
+          <h3 class="info-modal-title">申请体验</h3>
+          <form class="info-modal-form">
+            <label class="info-modal-field">
+              <span class="info-modal-label">姓名</span>
+              <input class="info-modal-input" type="text" name="name" placeholder="请输入" />
+            </label>
+            <label class="info-modal-field">
+              <span class="info-modal-label">手机</span>
+              <input class="info-modal-input" type="tel" name="phone" placeholder="请输入" />
+            </label>
+            <label class="info-modal-field">
+              <span class="info-modal-label">公司</span>
+              <input class="info-modal-input" type="text" name="company" placeholder="请输入" />
+            </label>
+            <label class="info-modal-field">
+              <span class="info-modal-label">咨询</span>
+              <input class="info-modal-input" type="text" name="consult" placeholder="请输入" />
+            </label>
+          </form>
+        </div>
+        <button class="info-modal-submit" type="button">提交</button>
+      </div>
     </div>
     <div class="page-shell">
       <div class="page-canvas">
@@ -1728,6 +1954,72 @@
     </div>
               <script>
       (function () {
+        var phoneTrigger = document.querySelector("[data-open-phone-popover]");
+        var phonePopover = document.getElementById("phonePopover");
+        if (phoneTrigger && phonePopover) {
+          function setPhonePopover(open) {
+            phonePopover.classList.toggle("is-open", open);
+            phonePopover.setAttribute("aria-hidden", open ? "false" : "true");
+          }
+
+          phoneTrigger.addEventListener("mouseenter", function () { setPhonePopover(true); });
+          phoneTrigger.addEventListener("mouseleave", function () { setPhonePopover(false); });
+          phoneTrigger.addEventListener("focus", function () { setPhonePopover(true); });
+          phoneTrigger.addEventListener("blur", function () { setPhonePopover(false); });
+          phoneTrigger.addEventListener("click", function (event) {
+            event.stopPropagation();
+            setPhonePopover(!phonePopover.classList.contains("is-open"));
+          });
+          phonePopover.addEventListener("mouseenter", function () { setPhonePopover(true); });
+          phonePopover.addEventListener("mouseleave", function () { setPhonePopover(false); });
+          phonePopover.addEventListener("click", function (event) {
+            event.stopPropagation();
+          });
+          document.addEventListener("click", function () {
+            setPhonePopover(false);
+          });
+          document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+              setPhonePopover(false);
+            }
+          });
+        }
+      })();
+
+      (function () {
+        var openTrigger = document.querySelector("[data-open-info-modal]");
+        var backdrop = document.getElementById("infoModalBackdrop");
+        var modal = backdrop ? backdrop.querySelector(".info-modal") : null;
+        var closeTrigger = backdrop ? backdrop.querySelector("[data-close-info-modal]") : null;
+        if (!openTrigger || !backdrop || !modal || !closeTrigger) return;
+
+        function openInfoModal() {
+          backdrop.classList.add("is-open");
+          backdrop.setAttribute("aria-hidden", "false");
+          document.body.classList.add("info-modal-open");
+        }
+
+        function closeInfoModal() {
+          backdrop.classList.remove("is-open");
+          backdrop.setAttribute("aria-hidden", "true");
+          document.body.classList.remove("info-modal-open");
+        }
+
+        openTrigger.addEventListener("click", openInfoModal);
+        closeTrigger.addEventListener("click", function (event) { event.preventDefault(); event.stopPropagation(); closeInfoModal(); });
+        backdrop.addEventListener("click", function (event) {
+          if (event.target === backdrop) {
+            closeInfoModal();
+          }
+        });
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && backdrop.classList.contains("is-open")) {
+            closeInfoModal();
+          }
+        });
+      })();
+
+      (function () {
         var header = document.getElementById("siteHeader");
         if (!header) return;
 
@@ -2023,6 +2315,7 @@
 
       })();
 
+
       (function () {
         var header = document.getElementById("siteHeader");
         var dropdown = document.getElementById("productDropdown");
@@ -2252,6 +2545,7 @@
         });
       })();
 
+
       (function () {
         var header = document.getElementById("siteHeader");
         var dropdown = document.getElementById("solutionDropdown");
@@ -2474,6 +2768,7 @@
           }
         });
       })();
+
       (function () {
         var header = document.getElementById("siteHeader");
         var dropdown = document.getElementById("aboutDropdown");
@@ -2710,6 +3005,24 @@
     </script>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
