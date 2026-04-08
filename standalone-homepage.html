@@ -103,7 +103,8 @@
         display: inline-flex;
         align-items: center;
         gap: 10px;
-        width: 216px;
+        width: max-content;
+        max-width: calc(100vw - 120px);
         padding: 10px;
         border-radius: 30px;
         background: linear-gradient(180deg, #e9f1ff 0%, #ffffff 100%);
@@ -598,6 +599,9 @@
       .nav-dropdown-panel.nav-dropdown-panel-compact {
         width: 2.7rem;
       }
+      .nav-dropdown-panel.nav-dropdown-panel-solution {
+        width: 9.4rem;
+      }
       .nav-dropdown.is-open .nav-dropdown-panel {
         opacity: 1;
         visibility: visible;
@@ -726,7 +730,7 @@
       }
       .nav-solution-list {
         display: grid;
-        grid-template-columns: repeat(3, minmax(2.55rem, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         column-gap: 0.1667rem;
         row-gap: 0.1833rem;
         margin: 0;
@@ -744,6 +748,7 @@
         line-height: 0.2667rem;
         color: #7c8697;
         border-radius: 0.0167rem;
+        white-space: nowrap;
         transition: background-color 0.22s ease, color 0.22s ease, padding-left 0.22s ease;
       }
       .nav-solution-link::before {
@@ -2391,9 +2396,13 @@
           var triggerRect = trigger.getBoundingClientRect();
           var panelWidth = panel.offsetWidth || 962;
           var triggerCenter = triggerRect.left + triggerRect.width / 2;
+          var viewportPadding = 16;
           var panelLeft = triggerCenter - panelWidth / 2;
+          var minLeft = viewportPadding;
+          var maxLeft = window.innerWidth - panelWidth - viewportPadding;
+          panelLeft = Math.max(minLeft, Math.min(panelLeft, maxLeft));
           panel.style.left = panelLeft + "px";
-          surface.style.setProperty("--dropdown-arrow-left", "50%");
+          surface.style.setProperty("--dropdown-arrow-left", (triggerCenter - panelLeft) + "px");
         }
 
         function syncHeaderState() {
@@ -2624,9 +2633,13 @@
           var triggerRect = trigger.getBoundingClientRect();
           var panelWidth = panel.offsetWidth || 962;
           var triggerCenter = triggerRect.left + triggerRect.width / 2;
+          var viewportPadding = 16;
           var panelLeft = triggerCenter - panelWidth / 2;
+          var minLeft = viewportPadding;
+          var maxLeft = window.innerWidth - panelWidth - viewportPadding;
+          panelLeft = Math.max(minLeft, Math.min(panelLeft, maxLeft));
           panel.style.left = panelLeft + "px";
-          surface.style.setProperty("--dropdown-arrow-left", "50%");
+          surface.style.setProperty("--dropdown-arrow-left", (triggerCenter - panelLeft) + "px");
         }
 
         function syncHeaderState() {
@@ -2841,9 +2854,13 @@
           var triggerRect = trigger.getBoundingClientRect();
           var panelWidth = panel.offsetWidth || 324;
           var triggerCenter = triggerRect.left + triggerRect.width / 2;
+          var viewportPadding = 16;
           var panelLeft = triggerCenter - panelWidth / 2;
+          var minLeft = viewportPadding;
+          var maxLeft = window.innerWidth - panelWidth - viewportPadding;
+          panelLeft = Math.max(minLeft, Math.min(panelLeft, maxLeft));
           panel.style.left = panelLeft + "px";
-          surface.style.setProperty("--dropdown-arrow-left", "50%");
+          surface.style.setProperty("--dropdown-arrow-left", (triggerCenter - panelLeft) + "px");
         }
 
         function syncHeaderState() {
