@@ -77,6 +77,9 @@
         gap: 20px;
         transform: translateY(-50%);
       }
+      .side-floating-phone-group {
+        position: relative;
+      }
       .side-floating-icons img {
         width: 80px;
         height: 80px;
@@ -93,9 +96,9 @@
         pointer-events: none;
       }
       .phone-popover {
-        position: fixed;
-        top: 50%;
-        right: 130px;
+        position: absolute;
+        right: calc(100% + 6px);
+        bottom: calc(100% - 40px);
         z-index: 110;
         display: inline-flex;
         align-items: center;
@@ -108,14 +111,14 @@
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        transform: translate3d(18px, -50%, 0);
+        transform: translate3d(6px, 6px, 0);
         transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
       }
       .phone-popover.is-open {
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
-        transform: translate3d(0, -50%, 0);
+        transform: translate3d(0, 0, 0);
       }
       .phone-popover-text {
         flex: 1 1 auto;
@@ -1510,18 +1513,20 @@
   </head>
   <body>
     <div class="side-floating-icons" aria-label="快捷入口">
-      <button class="side-floating-icon-trigger" type="button" data-open-phone-popover aria-label="显示联系电话">
-        <img src="./public/figma-assets/phone.png" alt="电话图标" />
-      </button>
+      <div class="side-floating-phone-group">
+        <button class="side-floating-icon-trigger" type="button" data-open-phone-popover aria-label="显示联系电话">
+          <img src="./public/figma-assets/phone.png" alt="电话图标" />
+        </button>
+        <div class="phone-popover" id="phonePopover" aria-hidden="true">
+          <span class="phone-popover-text">400-990-3366</span>
+          <a class="phone-popover-action" href="tel:4009903366" aria-label="拨打 400-990-3366">
+            <img src="./public/figma-assets/phoneN.svg" alt="" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
       <button class="side-floating-icon-trigger" type="button" data-open-info-modal aria-label="打开信息弹窗">
         <img src="./public/figma-assets/info.png" alt="信息图标" />
       </button>
-    </div>
-    <div class="phone-popover" id="phonePopover" aria-hidden="true">
-      <span class="phone-popover-text">400-990-3366</span>
-      <a class="phone-popover-action" href="tel:4009903366" aria-label="拨打 400-990-3366">
-        <img src="./public/figma-assets/phoneN.svg" alt="" aria-hidden="true" />
-      </a>
     </div>
     <div class="info-modal-backdrop" id="infoModalBackdrop" aria-hidden="true">
       <div class="info-modal" role="dialog" aria-modal="true" aria-label="信息弹窗">
@@ -1979,9 +1984,6 @@
             event.preventDefault();
             event.stopPropagation();
             setPhonePopover(!phonePopover.classList.contains("is-open"));
-          });
-          phoneTrigger.addEventListener("focus", function () {
-            setPhonePopover(true);
           });
           phonePopover.addEventListener("click", function (event) {
             event.stopPropagation();
@@ -3016,11 +3018,6 @@
     </script>
   </body>
 </html>
-
-
-
-
-
 
 
 
