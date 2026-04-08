@@ -94,43 +94,54 @@
       }
       .phone-popover {
         position: fixed;
-        top: calc(50% - 0.5333rem);
-        right: 1.0667rem;
+        top: 50%;
+        right: 130px;
         z-index: 110;
         display: inline-flex;
         align-items: center;
-        gap: 0.0833rem;
-        min-width: 2.03rem;
-        height: 0.6rem;
-        padding: 0 0.1667rem;
-        border-radius: 0.05rem;
-        background: linear-gradient(180deg, #5d95f2 0%, #4a84e7 100%);
-        box-shadow: 0 0.05rem 0.1333rem rgba(59, 109, 196, 0.24);
+        gap: 10px;
+        width: 216px;
+        padding: 10px;
+        border-radius: 30px;
+        background: linear-gradient(180deg, #e9f1ff 0%, #ffffff 100%);
+        box-shadow: 0 0 4px rgba(0, 0, 0, 0.15);
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        transform: translate3d(0.1333rem, 0, 0);
+        transform: translate3d(18px, -50%, 0);
         transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
       }
       .phone-popover.is-open {
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
-        transform: translate3d(0, 0, 0);
-      }
-      .phone-popover-icon {
-        display: block;
-        width: 0.1833rem;
-        height: 0.1833rem;
-        flex: none;
-        object-fit: contain;
+        transform: translate3d(0, -50%, 0);
       }
       .phone-popover-text {
-        color: #ffffff;
-        font-family: "Arial", "PingFang SC", "Microsoft YaHei", sans-serif;
-        font-size: 0.1667rem;
-        line-height: 1;
+        flex: 1 1 auto;
+        min-width: 0;
+        color: #111111;
+        font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 22px;
+        text-align: center;
         white-space: nowrap;
+      }
+      .phone-popover-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: linear-gradient(180deg, #6d73ff 0%, #4f5cff 100%);
+        box-shadow: 0 6px 14px rgba(79, 92, 255, 0.24);
+      }
+      .phone-popover-action img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
       }
 
       .info-modal-backdrop {
@@ -1507,8 +1518,10 @@
       </button>
     </div>
     <div class="phone-popover" id="phonePopover" aria-hidden="true">
-      <img class="phone-popover-icon" src="./public/figma-assets/phoneN.svg" alt="" aria-hidden="true" />
       <span class="phone-popover-text">400-990-3366</span>
+      <a class="phone-popover-action" href="tel:4009903366" aria-label="拨打 400-990-3366">
+        <img src="./public/figma-assets/phoneN.svg" alt="" aria-hidden="true" />
+      </a>
     </div>
     <div class="info-modal-backdrop" id="infoModalBackdrop" aria-hidden="true">
       <div class="info-modal" role="dialog" aria-modal="true" aria-label="信息弹窗">
@@ -1926,7 +1939,7 @@
               <a href="https://www.qianjiangcloud.com/views/solution/b2bpfx.html" target="_blank" rel="noreferrer">B2b商城/渠道分销系统</a>
               <a href="https://www.qianjiangcloud.com/views/solution/bbc.html" target="_blank" rel="noreferrer">B2b2c多用户商城</a>
               <a href="https://www.qianjiangcloud.com/views/solution/flsc.html" target="_blank" rel="noreferrer">积分福利商城</a>
-              <a href="https://www.qianjiangcloud.com/views/solution/flsc.html" target="_blank" rel="noreferrer">积分福利商城</a>
+              <a href="https://www.qianjiangcloud.com/views/solution/wl.html" target="_blank" rel="noreferrer">仓储物流系统/OWTB</a>
             </div>
 
             <div class="footer-group">
@@ -1962,16 +1975,14 @@
             phonePopover.setAttribute("aria-hidden", open ? "false" : "true");
           }
 
-          phoneTrigger.addEventListener("mouseenter", function () { setPhonePopover(true); });
-          phoneTrigger.addEventListener("mouseleave", function () { setPhonePopover(false); });
-          phoneTrigger.addEventListener("focus", function () { setPhonePopover(true); });
-          phoneTrigger.addEventListener("blur", function () { setPhonePopover(false); });
           phoneTrigger.addEventListener("click", function (event) {
+            event.preventDefault();
             event.stopPropagation();
             setPhonePopover(!phonePopover.classList.contains("is-open"));
           });
-          phonePopover.addEventListener("mouseenter", function () { setPhonePopover(true); });
-          phonePopover.addEventListener("mouseleave", function () { setPhonePopover(false); });
+          phoneTrigger.addEventListener("focus", function () {
+            setPhonePopover(true);
+          });
           phonePopover.addEventListener("click", function (event) {
             event.stopPropagation();
           });
@@ -3005,8 +3016,6 @@
     </script>
   </body>
 </html>
-
-
 
 
 
